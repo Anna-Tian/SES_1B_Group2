@@ -1,3 +1,22 @@
 <resources>
     <string name="app_name">SES_1B_Group2</string>
+    <string name="add">+ Add</string>
+
+
+    <string name="action_settings">Settings</string>
+    <string name="hello_world">Hello world!</string>
+    <string name="start">Start</string>
+    <string name="pre">Stop</string>
+
+
+    <declare-styleable name="RecorderView"/>
+    <!-- 开始是否打开摄像头 -->
+    <attr name="is_open_camera" format="boolean" />
+    <!-- 一次拍摄最长时间 -->
+    <attr name="record_max_time" format="integer"/>
+    <!-- 视频分辨率宽度 -->
+    <attr name="width" format="integer"/>
+    <!-- 视频分辨率高度 -->
+    <attr name="height" format="integer"/>
+
 </resources>
