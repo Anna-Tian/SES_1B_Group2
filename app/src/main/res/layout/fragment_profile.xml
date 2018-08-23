@@ -1,0 +1,317 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <!--top profile bar-->
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/relLayout1">
+        <android.support.design.widget.AppBarLayout
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:background="@drawable/white_grey_border_bottom">
+
+            <android.support.v7.widget.Toolbar
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/profileToolBar">
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:layout_centerHorizontal="true"
+                        android:text="Profile"
+                        android:textStyle="bold"
+                        android:textSize="20sp"
+                        android:textColor="@color/black"
+                        android:layout_marginStart="15dp"
+                        android:id="@+id/profileName"/>
+
+                    <ImageView
+                        android:layout_width="30dp"
+                        android:layout_height="30dp"
+                        android:layout_alignParentLeft="true"
+                        android:layout_marginEnd="20dp"
+                        android:layout_centerVertical="true"
+                        android:id="@+id/profileMenu"
+                        android:src="@drawable/ic_home"/>
+                </RelativeLayout>
+            </android.support.v7.widget.Toolbar>
+        </android.support.design.widget.AppBarLayout>
+    </RelativeLayout>
+
+    <!--details of the profile, view text-->
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/relLayout1"
+        android:background="@color/white"
+        android:id="@+id/relLayout2">
+
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <!--Full name section-->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="35dp"
+                    android:orientation="horizontal"
+                    android:id="@+id/linlayout1"
+                    android:weightSum="100"
+                    android:layout_marginTop="20dp"
+                    android:background="@drawable/white_grey_border_bottom">
+                    <RelativeLayout
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="38">
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:id="@+id/fullname"
+                            android:text="Full Name:"
+                            android:layout_marginStart="15dp"
+                            android:textStyle="bold"
+                            android:textColor="@color/black"
+                            android:textSize="20sp"
+                            android:layout_centerVertical="true"/>
+                    </RelativeLayout>
+                    <RelativeLayout
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="62">
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:id="@+id/display_fullname"
+                            android:hint="display full name"
+                            android:textColor="@color/black"
+                            android:textSize="20sp"
+                            android:layout_centerVertical="true"/>
+                    </RelativeLayout>
+                </LinearLayout>
+
+                <!--gender section-->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="35dp"
+                    android:orientation="horizontal"
+                    android:id="@+id/linlayout2"
+                    android:weightSum="100"
+                    android:layout_below="@id/linlayout1"
+                    android:background="@drawable/white_grey_border_bottom">
+                    <RelativeLayout
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="38">
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:id="@+id/gender"
+                            android:text="Gender:"
+                            android:layout_marginStart="15dp"
+                            android:textStyle="bold"
+                            android:textColor="@color/black"
+                            android:textSize="20sp"
+                            android:layout_centerVertical="true"/>
+                    </RelativeLayout>
+                    <RelativeLayout
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="62">
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:id="@+id/display_gender"
+                            android:hint="display gender"
+                            android:textColor="@color/black"
+                            android:textSize="20sp"
+                            android:layout_centerVertical="true"/>
+                    </RelativeLayout>
+                </LinearLayout>
+
+                <!--age section-->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="35dp"
+                    android:orientation="horizontal"
+                    android:id="@+id/linlayout3"
+                    android:weightSum="100"
+                    android:layout_below="@id/linlayout2"
+                    android:background="@drawable/white_grey_border_bottom">
+                    <RelativeLayout
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="38">
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:id="@+id/dob"
+                            android:text="Date of Birth:"
+                            android:layout_marginStart="15dp"
+                            android:textStyle="bold"
+                            android:textColor="@color/black"
+                            android:textSize="20sp"
+                            android:layout_centerVertical="true"/>
+                    </RelativeLayout>
+                    <RelativeLayout
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="62">
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:id="@+id/display_dob"
+                            android:hint="display date of birth"
+                            android:textColor="@color/black"
+                            android:textSize="20sp"
+                            android:layout_centerVertical="true"/>
+                    </RelativeLayout>
+                </LinearLayout>
+
+                <!--height section-->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="35dp"
+                    android:orientation="horizontal"
+                    android:id="@+id/linlayout4"
+                    android:weightSum="100"
+                    android:layout_below="@id/linlayout3"
+                    android:background="@drawable/white_grey_border_bottom">
+                    <RelativeLayout
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="38">
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:id="@+id/height"
+                            android:text="Height:"
+                            android:layout_marginStart="15dp"
+                            android:textStyle="bold"
+                            android:textColor="@color/black"
+                            android:textSize="20sp"
+                            android:layout_centerVertical="true"/>
+                    </RelativeLayout>
+                    <RelativeLayout
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="62">
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:id="@+id/display_height"
+                            android:hint="display height"
+                            android:textColor="@color/black"
+                            android:textSize="20sp"
+                            android:layout_centerVertical="true"/>
+                    </RelativeLayout>
+                </LinearLayout>
+
+                <!--weight section-->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="35dp"
+                    android:orientation="horizontal"
+                    android:id="@+id/linlayout5"
+                    android:weightSum="100"
+                    android:layout_below="@id/linlayout4"
+                    android:background="@drawable/white_grey_border_bottom">
+                    <RelativeLayout
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="38">
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:id="@+id/weight"
+                            android:text="Weight:"
+                            android:layout_marginStart="15dp"
+                            android:textStyle="bold"
+                            android:textColor="@color/black"
+                            android:textSize="20sp"
+                            android:layout_centerVertical="true"/>
+                    </RelativeLayout>
+                    <RelativeLayout
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="62">
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:id="@+id/display_weight"
+                            android:hint="display weight"
+                            android:textColor="@color/black"
+                            android:textSize="20sp"
+                            android:layout_centerVertical="true"/>
+                    </RelativeLayout>
+                </LinearLayout>
+
+                <!--medical condition-->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:id="@+id/linlayout6"
+                    android:weightSum="100"
+                    android:layout_below="@id/linlayout5"
+                    android:background="@drawable/white_grey_border_bottom">
+                    <RelativeLayout
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="38">
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:id="@+id/medical_condition"
+                            android:text="Medical Condition:"
+                            android:layout_marginStart="15dp"
+                            android:textStyle="bold"
+                            android:textColor="@color/black"
+                            android:textSize="14sp"
+                            android:layout_marginTop="8dp"/>
+                    </RelativeLayout>
+                    <RelativeLayout
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="62">
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:id="@+id/display_condition"
+                            android:hint="display all the medical conditions"
+                            android:textColor="@color/black"
+                            android:textSize="20sp"
+                            android:inputType="textMultiLine"
+                            android:layout_centerVertical="true"/>
+                    </RelativeLayout>
+                </LinearLayout>
+
+                <!--edit button-->
+                <Button
+                    android:layout_width="150dp"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/linlayout6"
+                    android:layout_marginTop="40dp"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginBottom="40dp"
+                    android:id="@+id/edit_profile"
+                    android:text="Edit"
+                    android:background="@drawable/white_rounded_button"/>
+
+            </RelativeLayout>
+        </ScrollView>
+    </RelativeLayout>
+
+</RelativeLayout>

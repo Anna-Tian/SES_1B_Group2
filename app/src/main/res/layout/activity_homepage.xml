@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <!--top homepage bar-->
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="80dp"
+        android:id="@+id/relLayout1"
+        android:background="@drawable/white_grey_border_bottom">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_centerHorizontal="true"
+            android:text="Patient Name"
+            android:textStyle="bold"
+            android:textSize="20sp"
+            android:textColor="@color/black"
+            android:layout_marginStart="15dp"
+            android:id="@+id/patientName"/>
+
+        <ImageView
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_alignParentRight="true"
+            android:layout_marginEnd="20dp"
+            android:layout_centerVertical="true"
+            android:id="@+id/profile_setting"
+            android:src="@drawable/ic_setting"/>
+    </RelativeLayout>
+
+    <!-- 6 selections from homepage-->
+    <android.support.constraint.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/relLayout1"
+        android:id="@+id/constraintLayout"
+        android:padding="40dp">
+
+        <!--profile button-->
+        <Button
+            android:id="@+id/btn_profile"
+            android:layout_width="120dp"
+            android:layout_height="120dp"
+            android:background="@drawable/white_rounded_button"
+            android:text="Profile"
+            android:textAllCaps="false"
+            android:textSize="25dp"
+            app:layout_constraintStart_toStartOf="parent" />
+
+        <!--heart rate button-->
+        <Button
+            android:id="@+id/btn_hr"
+            android:layout_width="120dp"
+            android:layout_height="120dp"
+            android:background="@drawable/white_rounded_button"
+            android:text="Heart Rate"
+            android:textAllCaps="false"
+            android:textSize="25dp"
+            app:layout_constraintEnd_toEndOf="parent" />
+
+        <!--video snippet button-->
+        <Button
+            android:id="@+id/btn_vs"
+            android:layout_width="120dp"
+            android:layout_height="120dp"
+            android:background="@drawable/white_rounded_button"
+            android:text="Video Snippet"
+            android:textAllCaps="false"
+            android:layout_marginTop="20dp"
+            android:textSize="25dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/btn_profile"/>
+
+        <!--upload file button-->
+        <Button
+            android:id="@+id/btn_upload"
+            android:layout_width="120dp"
+            android:layout_height="120dp"
+            android:background="@drawable/white_rounded_button"
+            android:text="Upload File"
+            android:textAllCaps="false"
+            android:layout_marginTop="20dp"
+            android:textSize="25dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/btn_hr"/>
+
+        <!--view map button-->
+        <Button
+            android:id="@+id/btn_map"
+            android:layout_width="120dp"
+            android:layout_height="120dp"
+            android:background="@drawable/white_rounded_button"
+            android:text="Map"
+            android:textAllCaps="false"
+            android:layout_marginTop="20dp"
+            android:textSize="25dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/btn_vs"/>
+
+        <!--send data packet button-->
+        <Button
+            android:id="@+id/btn_send"
+            android:layout_width="120dp"
+            android:layout_height="120dp"
+            android:background="@drawable/white_rounded_button"
+            android:text="Send Data Packet"
+            android:textAllCaps="false"
+            android:layout_marginTop="20dp"
+            android:textSize="25dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/btn_upload"/>
+    </android.support.constraint.ConstraintLayout>
+</RelativeLayout>
