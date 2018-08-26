@@ -1,3 +1,11 @@
 <resources>
     <string name="app_name">SES_1B_Group2</string>
+
+
+    <!--Firebase Database fields-->
+    <string name="dbname_user">user</string>
+    <string name="dbname_user_profile">user_profile</string>
+
+    <string name="field_username">username</string>
+    <string name="field_email">email</string>
 </resources>

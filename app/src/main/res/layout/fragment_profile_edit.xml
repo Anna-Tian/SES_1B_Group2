@@ -104,7 +104,7 @@
                         <EditText
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:id="@+id/display_fullname"
+                            android:id="@+id/input_fullname"
                             android:hint="Enter your full name"
                             android:background="@null"
                             android:textColor="@color/black"
@@ -141,30 +141,15 @@
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
                         android:layout_weight="62">
-                        <RadioGroup
-                            android:layout_width="match_parent"
+                        <EditText
+                            android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:orientation="horizontal"
-                            android:layout_centerVertical="true"
-                            android:weightSum="100"
-                            android:id="@+id/select_gender">
-                            <!--male selection-->
-                            <RadioButton
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:id="@+id/male"
-                                android:text="Male"
-                                android:layout_weight="50"
-                                android:textSize="20sp" />
-                            <!--female selection-->
-                            <RadioButton
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:id="@+id/female"
-                                android:layout_weight="50"
-                                android:text="Female"
-                                android:textSize="20sp" />
-                        </RadioGroup>
+                            android:id="@+id/input_gender"
+                            android:hint="Enter your gender"
+                            android:background="@null"
+                            android:textColor="@color/black"
+                            android:textSize="20sp"
+                            android:layout_centerVertical="true"/>
                     </RelativeLayout>
                 </LinearLayout>
 
@@ -199,8 +184,8 @@
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:id="@+id/display_dob"
-                            android:hint="Select your date of birth"
+                            android:id="@+id/input_dob"
+                            android:hint="dd/mm/yyyy"
                             android:textColor="@color/black"
                             android:textSize="20sp"
                             android:layout_centerVertical="true"/>
@@ -236,14 +221,21 @@
                         android:layout_height="match_parent"
                         android:layout_weight="62">
                         <EditText
-                            android:layout_width="wrap_content"
+                            android:layout_width="70dp"
                             android:layout_height="wrap_content"
-                            android:id="@+id/display_height"
-                            android:hint="display height"
+                            android:id="@+id/input_height"
                             android:textColor="@color/black"
                             android:textSize="20sp"
-                            android:background="@null"
                             android:layout_centerVertical="true"/>
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_toEndOf="@+id/input_height"
+                            android:layout_centerVertical="true"
+                            android:layout_marginStart="5dp"
+                            android:text="cm"
+                            android:textSize="20sp"
+                            android:textColor="@color/black"/>
                     </RelativeLayout>
                 </LinearLayout>
 
@@ -276,14 +268,21 @@
                         android:layout_height="match_parent"
                         android:layout_weight="62">
                         <EditText
-                            android:layout_width="wrap_content"
+                            android:layout_width="70dp"
                             android:layout_height="wrap_content"
-                            android:id="@+id/display_weight"
-                            android:hint="display weight"
-                            android:background="@null"
+                            android:id="@+id/input_weight"
                             android:textColor="@color/black"
                             android:textSize="20sp"
                             android:layout_centerVertical="true"/>
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_toEndOf="@+id/input_weight"
+                            android:layout_centerVertical="true"
+                            android:layout_marginStart="5dp"
+                            android:text="kg"
+                            android:textSize="20sp"
+                            android:textColor="@color/black"/>
                     </RelativeLayout>
                 </LinearLayout>
 
@@ -318,9 +317,9 @@
                         <EditText
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:id="@+id/display_condition"
+                            android:id="@+id/input_condition"
                             android:background="@null"
-                            android:hint="display all the medical conditions"
+                            android:hint="Enter all the medical conditions"
                             android:textColor="@color/black"
                             android:textSize="20sp"
                             android:inputType="textMultiLine"
