@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".HearRateDataActivity">
+
+    <EditText
+        android:id="@+id/editTextMin"
+        android:layout_width="164dp"
+        android:layout_height="64dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="4dp"
+        android:ems="10"
+        android:hint="Min"
+        android:inputType="number|numberDecimal"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <EditText
+        android:id="@+id/editTextMax"
+        android:layout_width="164dp"
+        android:layout_height="60dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginTop="4dp"
+        android:ems="10"
+        android:hint="Max"
+        android:inputType="number|numberDecimal"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <EditText
+        android:id="@+id/editTextTime"
+        android:layout_width="298dp"
+        android:layout_height="47dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="20dp"
+        android:ems="10"
+        android:hint="MM/DD/YYYY HH:MM:SS A"
+        android:inputType="textPersonName|datetime"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/editTextMax" />
+
+    <EditText
+        android:id="@+id/editTextHeartRate"
+        android:layout_width="356dp"
+        android:layout_height="45dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="20dp"
+        android:ems="10"
+        android:hint="Heart Rate"
+        android:inputType="number|numberDecimal"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/editTextTime" />
+
+    <EditText
+        android:id="@+id/editTextSpeed"
+        android:layout_width="356dp"
+        android:layout_height="40dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="20dp"
+        android:ems="10"
+        android:hint="Speed"
+        android:inputType="number|numberDecimal"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/editTextHeartRate" />
+
+    <EditText
+        android:id="@+id/editTextDistance"
+        android:layout_width="356dp"
+        android:layout_height="42dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="20dp"
+        android:ems="10"
+        android:hint="Distance"
+        android:inputType="number|numberDecimal"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/editTextSpeed" />
+
+    <Button
+        android:id="@+id/buttonStop"
+        android:layout_width="87dp"
+        android:layout_height="62dp"
+        android:layout_marginStart="110dp"
+        android:layout_marginTop="20dp"
+        android:text="Stop"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/editTextDistance" />
+
+    <ImageButton
+        android:id="@+id/imageButtonexit"
+        android:layout_width="63dp"
+        android:layout_height="62dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="20dp"
+        android:scaleType="fitXY"
+        app:layout_constraintStart_toEndOf="@+id/buttonStop"
+        app:layout_constraintTop_toBottomOf="@+id/editTextDistance"
+        app:srcCompat="@drawable/exit" />
+
+    <Button
+        android:id="@+id/buttonNow"
+        android:layout_width="58dp"
+        android:layout_height="47dp"
+        android:layout_marginTop="20dp"
+        android:text="Now"
+        app:layout_constraintStart_toEndOf="@+id/editTextTime"
+        app:layout_constraintTop_toBottomOf="@+id/editTextMax" />
+</android.support.constraint.ConstraintLayout>

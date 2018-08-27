@@ -1,3 +1,8 @@
 <resources>
     <string name="app_name">SES_1B_Group2</string>
+
+
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="measure_now">Measure Now</string>
+    <string name="show_all_data">Show All Data</string>
 </resources>
