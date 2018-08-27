@@ -12,30 +12,44 @@ import android.widget.TextView;
 
 import com.example.anna.ses_1b_group2.login.LoginActivity;
 import com.example.anna.ses_1b_group2.login.SignOutActivity;
+import com.example.anna.ses_1b_group2.models.UserProfile;
+import com.example.anna.ses_1b_group2.models.UserSettings;
 import com.example.anna.ses_1b_group2.profile.ProfileActivity;
+import com.example.anna.ses_1b_group2.utils.FirebaseMethods;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 public class HomeActivity extends AppCompatActivity {
     private static final String TAG = "HomeActivity";
     private Context mContext = HomeActivity.this;
+    private TextView mPatientName, linkSignOut;
+    private Button btnProfile;
     //firebase
     private FirebaseAuth mAuth;
     private FirebaseAuth.AuthStateListener mAuthListener;
     private FirebaseDatabase mFirebaseDatabase;
     private DatabaseReference myRef;
+    private FirebaseMethods mFirebaseMethods;
+
+    private UserSettings mUserSettings;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_homepage);
         Log.d(TAG, "onCreate: starting");
-        setupFirebaseAuth();
 
-        TextView signOut = (TextView) findViewById(R.id.profile_SignOut);
-        signOut.setOnClickListener(new View.OnClickListener() {
+        mPatientName = (TextView)findViewById(R.id.patientName);
+        linkSignOut = (TextView) findViewById(R.id.profile_SignOut);
+        btnProfile = (Button) findViewById(R.id.btn_profile);
+
+        linkSignOut.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Log.d(TAG, "onClick: navigating to SignOutActivity");
@@ -44,8 +58,7 @@ public class HomeActivity extends AppCompatActivity {
             }
         });
 
-        Button profile = (Button) findViewById(R.id.btn_profile);
-        profile.setOnClickListener(new View.OnClickListener() {
+        btnProfile.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Log.d(TAG, "onClick: navigating to SignOutActivity");
@@ -53,6 +66,16 @@ public class HomeActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+
+
+        setupFirebaseAuth();
+    }
+
+    private void setProfileWidgets(UserSettings userSettings){
+
+        mUserSettings = userSettings;
+        UserProfile profile = userSettings.getProfile();
+        mPatientName.setText(profile.getFull_name());
     }
 
 
@@ -77,6 +100,9 @@ public class HomeActivity extends AppCompatActivity {
     private void setupFirebaseAuth(){
         Log.d(TAG, "setupFirebaseAuth: setting up firebase auth");
         mAuth = FirebaseAuth.getInstance();
+        mFirebaseDatabase = FirebaseDatabase.getInstance();
+        myRef = mFirebaseDatabase.getReference();
+        mFirebaseMethods = new FirebaseMethods(mContext);
 
         mAuthListener = new FirebaseAuth.AuthStateListener() {
             @Override
@@ -95,6 +121,23 @@ public class HomeActivity extends AppCompatActivity {
                 }
             }
         };
+
+        myRef.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+
+                //retrieve user information from the database
+                setProfileWidgets(mFirebaseMethods.getUserSettings(dataSnapshot));
+
+                //retrieve images for the user in question
+
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
     }
     @Override
     public void onStart() {

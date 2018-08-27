@@ -12,6 +12,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.anna.ses_1b_group2.HomeActivity;
 import com.example.anna.ses_1b_group2.R;
@@ -33,6 +34,9 @@ public class EditProfileActivity extends AppCompatActivity {
     private Context mContext = EditProfileActivity.this;
     private ImageView iconBack, iconSave;
     private EditText eFullName, eGender, eDOB, eHeight, eWeight, eMedicalConditon;
+
+    //variables
+    private UserSettings mUserSettings;
 
     //firebase
     private FirebaseAuth mAuth;
@@ -60,17 +64,16 @@ public class EditProfileActivity extends AppCompatActivity {
         iconBack.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Log.d(TAG, "onClick: navigating to Home page");
-                Intent intent = new Intent(mContext, HomeActivity.class);
+                Log.d(TAG, "onClick: navigating to Profile page");
+                Intent intent = new Intent(mContext, ProfileActivity.class);
                 startActivity(intent);
             }
         });
         iconSave.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Log.d(TAG, "onClick: navigating to Profile page");
-                Intent intent = new Intent(mContext, ProfileActivity.class);
-                startActivity(intent);
+                Log.d(TAG, "onClick: attempting to save changes");
+                saveProfileSettings();
             }
         });
 
@@ -82,13 +85,47 @@ public class EditProfileActivity extends AppCompatActivity {
         //User user = userSettings.getUser();
         UserProfile userProfile = userSettings.getProfile();
 
+        mUserSettings = userSettings;
         eFullName.setText(userProfile.getFull_name());
         eGender.setText(userProfile.getGender());
         eDOB.setText(userProfile.getDob());
         eHeight.setText(String.valueOf(userProfile.getHeight()));
         eWeight.setText(String.valueOf(userProfile.getWeight()));
         eMedicalConditon.setText(userProfile.getMedical_condition());
+    }
 
+    private void saveProfileSettings(){
+        final String fullName = eFullName.getText().toString();
+        final String gender = eGender.getText().toString();
+        final String dob = eDOB.getText().toString();
+        final int height = Integer.parseInt(eHeight.getText().toString());
+        final int weight = Integer.parseInt(eWeight.getText().toString());
+        final String medicalCondition = eMedicalConditon.getText().toString();
+
+        if (!mUserSettings.getProfile().getFull_name().equals(fullName)){
+            mFirebaseMethods.updateUserSettings(fullName,null,null,0,0,null);
+            Toast.makeText(mContext, "Changes Saved", Toast.LENGTH_SHORT).show();
+        }
+        if (!mUserSettings.getProfile().getFull_name().equals(gender)){
+            mFirebaseMethods.updateUserSettings(null,gender,null,0,0,null);
+            Toast.makeText(mContext, "Changes Saved", Toast.LENGTH_SHORT).show();
+        }
+        if (!mUserSettings.getProfile().getFull_name().equals(dob)){
+            mFirebaseMethods.updateUserSettings(null,null,dob,0,0,null);
+            Toast.makeText(mContext, "Changes Saved", Toast.LENGTH_SHORT).show();
+        }
+        if (!mUserSettings.getProfile().getFull_name().equals(height)){
+            mFirebaseMethods.updateUserSettings(null,null,null,height,0,null);
+            Toast.makeText(mContext, "Changes Saved", Toast.LENGTH_SHORT).show();
+        }
+        if (!mUserSettings.getProfile().getFull_name().equals(weight)){
+            mFirebaseMethods.updateUserSettings(null,null,null,0,weight,null);
+            Toast.makeText(mContext, "Changes Saved", Toast.LENGTH_SHORT).show();
+        }
+        if (!mUserSettings.getProfile().getFull_name().equals(medicalCondition)){
+            mFirebaseMethods.updateUserSettings(null,null,null,0,0,medicalCondition);
+            Toast.makeText(mContext, "Changes Saved", Toast.LENGTH_SHORT).show();
+        }
     }
 
 

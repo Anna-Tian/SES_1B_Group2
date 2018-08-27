@@ -30,9 +30,9 @@ public class UserSettings {
 
     @Override
     public String toString() {
-        return "UserSettings{\n" +
-                "user=" + user +
-                ", \nprofile=" + profile +
+        return "UserSettings\n{" +
+                "\nuser=" + user +
+                ", \nprofile=" + profile +"\n" +
                 '}';
     }
 }

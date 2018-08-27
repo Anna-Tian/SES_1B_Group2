@@ -95,7 +95,7 @@ public class FirebaseMethods {
     }
 
     /**
-     * retrives the profile fro the user currently logged in
+     * retrives the profile from the user currently logged in
      * @param dataSnapshot
      * @return
      */
@@ -136,5 +136,48 @@ public class FirebaseMethods {
             }
         }
         return new UserSettings(user,profile);
+    }
+
+    /**
+     * update profile to Firebase
+     */
+    public void updateUserSettings(String fullName, String gender, String dob, int height, int weight, String medicalCondition){
+        Log.d(TAG, "updateUserSettings: \n updating user settings");
+        if (fullName != null){
+            myRef.child(mContext.getString(R.string.dbname_user_profile))
+                    .child(userID)
+                    .child(mContext.getString(R.string.field_full_name))
+                    .setValue(fullName);
+        }
+        if (gender != null){
+            myRef.child(mContext.getString(R.string.dbname_user_profile))
+                    .child(userID)
+                    .child(mContext.getString(R.string.field_gender))
+                    .setValue(gender);
+        }
+        if (dob != null){
+            myRef.child(mContext.getString(R.string.dbname_user_profile))
+                    .child(userID)
+                    .child(mContext.getString(R.string.field_dob))
+                    .setValue(dob);
+        }
+        if (height != 0){
+            myRef.child(mContext.getString(R.string.dbname_user_profile))
+                    .child(userID)
+                    .child(mContext.getString(R.string.field_height))
+                    .setValue(height);
+        }
+        if (weight != 0){
+            myRef.child(mContext.getString(R.string.dbname_user_profile))
+                    .child(userID)
+                    .child(mContext.getString(R.string.field_weight))
+                    .setValue(weight);
+        }
+        if (medicalCondition != null){
+            myRef.child(mContext.getString(R.string.dbname_user_profile))
+                    .child(userID)
+                    .child(mContext.getString(R.string.field_medical_condition))
+                    .setValue(medicalCondition);
+        }
     }
 }
