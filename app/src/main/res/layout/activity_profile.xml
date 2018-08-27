@@ -41,7 +41,7 @@
                         android:layout_alignParentLeft="true"
                         android:layout_marginEnd="20dp"
                         android:layout_centerVertical="true"
-                        android:id="@+id/profileMenu"
+                        android:id="@+id/icHome"
                         android:src="@drawable/ic_home"/>
                 </RelativeLayout>
             </android.support.v7.widget.Toolbar>
@@ -66,7 +66,7 @@
                 <!--Full name section-->
                 <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="35dp"
+                    android:layout_height="50dp"
                     android:orientation="horizontal"
                     android:id="@+id/linlayout1"
                     android:weightSum="100"
@@ -105,7 +105,7 @@
                 <!--gender section-->
                 <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="35dp"
+                    android:layout_height="50dp"
                     android:orientation="horizontal"
                     android:id="@+id/linlayout2"
                     android:weightSum="100"
@@ -144,7 +144,7 @@
                 <!--age section-->
                 <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="35dp"
+                    android:layout_height="50dp"
                     android:orientation="horizontal"
                     android:id="@+id/linlayout3"
                     android:weightSum="100"
@@ -183,7 +183,7 @@
                 <!--height section-->
                 <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="35dp"
+                    android:layout_height="50dp"
                     android:orientation="horizontal"
                     android:id="@+id/linlayout4"
                     android:weightSum="100"
@@ -212,17 +212,25 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:id="@+id/display_height"
-                            android:hint="display height"
                             android:textColor="@color/black"
                             android:textSize="20sp"
                             android:layout_centerVertical="true"/>
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_toEndOf="@+id/display_height"
+                            android:layout_centerVertical="true"
+                            android:layout_marginStart="5dp"
+                            android:text="cm"
+                            android:textSize="20sp"
+                            android:textColor="@color/black"/>
                     </RelativeLayout>
                 </LinearLayout>
 
                 <!--weight section-->
                 <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="35dp"
+                    android:layout_height="50dp"
                     android:orientation="horizontal"
                     android:id="@+id/linlayout5"
                     android:weightSum="100"
@@ -251,52 +259,54 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:id="@+id/display_weight"
-                            android:hint="display weight"
                             android:textColor="@color/black"
                             android:textSize="20sp"
                             android:layout_centerVertical="true"/>
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_toEndOf="@+id/display_weight"
+                            android:layout_centerVertical="true"
+                            android:layout_marginStart="5dp"
+                            android:text="kg"
+                            android:textSize="20sp"
+                            android:textColor="@color/black"/>
                     </RelativeLayout>
                 </LinearLayout>
 
                 <!--medical condition-->
-                <LinearLayout
+                <RelativeLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:orientation="horizontal"
                     android:id="@+id/linlayout6"
-                    android:weightSum="100"
+                    android:paddingTop="5dp"
+                    android:paddingBottom="15dp"
                     android:layout_below="@id/linlayout5"
                     android:background="@drawable/white_grey_border_bottom">
-                    <RelativeLayout
-                        android:layout_width="0dp"
-                        android:layout_height="match_parent"
-                        android:layout_weight="38">
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:id="@+id/medical_condition"
-                            android:text="Medical Condition:"
-                            android:layout_marginStart="15dp"
-                            android:textStyle="bold"
-                            android:textColor="@color/black"
-                            android:textSize="14sp"
-                            android:layout_marginTop="8dp"/>
-                    </RelativeLayout>
-                    <RelativeLayout
-                        android:layout_width="0dp"
-                        android:layout_height="match_parent"
-                        android:layout_weight="62">
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:id="@+id/display_condition"
-                            android:hint="display all the medical conditions"
-                            android:textColor="@color/black"
-                            android:textSize="20sp"
-                            android:inputType="textMultiLine"
-                            android:layout_centerVertical="true"/>
-                    </RelativeLayout>
-                </LinearLayout>
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/medical_condition"
+                        android:text="Medical Condition:"
+                        android:layout_marginStart="15dp"
+                        android:textStyle="bold"
+                        android:textColor="@color/black"
+                        android:textSize="20sp"
+                        android:layout_marginTop="8dp"/>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/medical_condition"
+                        android:id="@+id/display_condition"
+                        android:background="@null"
+                        android:layout_marginTop="10dp"
+                        android:layout_marginStart="15dp"
+                        android:hint="Display all the medical conditions"
+                        android:textColor="@color/black"
+                        android:textSize="20sp"
+                        android:layout_centerVertical="true"/>
+                </RelativeLayout>
 
                 <!--edit button-->
                 <Button

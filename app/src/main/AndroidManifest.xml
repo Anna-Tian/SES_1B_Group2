@@ -20,6 +20,8 @@
         <activity android:name=".login.RegisterActivity"></activity>
         <activity android:name=".login.SignOutActivity"></activity>
         <activity android:name=".profile.ProfileActivity"></activity>
+        <activity android:name=".profile.EditProfileActivity"></activity>
+
 
     </application>
 

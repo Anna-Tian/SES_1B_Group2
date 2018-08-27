@@ -9,13 +9,13 @@ import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.anna.ses_1b_group2.HomeActivity;
 import com.example.anna.ses_1b_group2.R;
 import com.example.anna.ses_1b_group2.login.LoginActivity;
-import com.example.anna.ses_1b_group2.models.User;
 import com.example.anna.ses_1b_group2.models.UserProfile;
 import com.example.anna.ses_1b_group2.models.UserSettings;
 import com.example.anna.ses_1b_group2.utils.FirebaseMethods;
@@ -27,13 +27,12 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
-public class ProfileActivity extends AppCompatActivity{
-    private static final String TAG = "ProfileActivity";
+public class EditProfileActivity extends AppCompatActivity {
+    private static final String TAG = "EditProfileActivity";
 
-    private Context mContext = ProfileActivity.this;
-    private ImageView iconHome;
-    private TextView dFullName, dGender, dDOB, dHeight, dWeight, dMedicalConditon;
-    private Button btnEdit;
+    private Context mContext = EditProfileActivity.this;
+    private ImageView iconBack, iconSave;
+    private EditText eFullName, eGender, eDOB, eHeight, eWeight, eMedicalConditon;
 
     //firebase
     private FirebaseAuth mAuth;
@@ -45,39 +44,37 @@ public class ProfileActivity extends AppCompatActivity{
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_profile);
-
-        mFirebaseMethods = new FirebaseMethods(mContext);
-        iconHome = (ImageView) findViewById(R.id.icHome);
-        dFullName = (TextView) findViewById(R.id.display_fullname);
-        dGender = (TextView) findViewById(R.id.display_gender);
-        dDOB = (TextView) findViewById(R.id.display_dob);
-        dHeight = (TextView) findViewById(R.id.display_height);
-        dWeight = (TextView) findViewById(R.id.display_weight);
-        dMedicalConditon = (TextView) findViewById(R.id.display_condition);
-        btnEdit = (Button) findViewById(R.id.edit_profile);
-
+        setContentView(R.layout.fragment_profile_edit);
         Log.d(TAG, "onCreate: started");
 
-        iconHome.setOnClickListener(new View.OnClickListener() {
+        mFirebaseMethods = new FirebaseMethods(mContext);
+        iconBack = (ImageView) findViewById(R.id.backArrow);
+        iconSave = (ImageView) findViewById(R.id.saveChanges);
+        eFullName = (EditText) findViewById(R.id.input_fullname);
+        eGender = (EditText) findViewById(R.id.input_gender);
+        eDOB = (EditText) findViewById(R.id.input_dob);
+        eHeight = (EditText) findViewById(R.id.input_height);
+        eWeight = (EditText) findViewById(R.id.input_weight);
+        eMedicalConditon = (EditText) findViewById(R.id.input_condition);
+
+        iconBack.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Log.d(TAG, "onClick: navigating to HomePage");
+                Log.d(TAG, "onClick: navigating to Home page");
                 Intent intent = new Intent(mContext, HomeActivity.class);
                 startActivity(intent);
             }
         });
-        btnEdit.setOnClickListener(new View.OnClickListener() {
+        iconSave.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Log.d(TAG, "onClick: navigating to EditProfile page");
-                Intent intent = new Intent(mContext, EditProfileActivity.class);
+                Log.d(TAG, "onClick: navigating to Profile page");
+                Intent intent = new Intent(mContext, ProfileActivity.class);
                 startActivity(intent);
             }
         });
 
         setupFirebaseAuth();
-
     }
 
     private void setProfileWidgets(UserSettings userSettings){
@@ -85,17 +82,14 @@ public class ProfileActivity extends AppCompatActivity{
         //User user = userSettings.getUser();
         UserProfile userProfile = userSettings.getProfile();
 
-        dFullName.setText(userProfile.getFull_name());
-        dGender.setText(userProfile.getGender());
-        dDOB.setText(userProfile.getDob());
-        dHeight.setText(String.valueOf(userProfile.getHeight()));
-        dWeight.setText(String.valueOf(userProfile.getWeight()));
-        dMedicalConditon.setText(userProfile.getMedical_condition());
-
+        eFullName.setText(userProfile.getFull_name());
+        eGender.setText(userProfile.getGender());
+        eDOB.setText(userProfile.getDob());
+        eHeight.setText(String.valueOf(userProfile.getHeight()));
+        eWeight.setText(String.valueOf(userProfile.getWeight()));
+        eMedicalConditon.setText(userProfile.getMedical_condition());
 
     }
-
-
 
 
 
