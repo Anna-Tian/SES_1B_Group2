@@ -16,6 +16,9 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity android:name=".HearRateDataActivity" />
+        <activity android:name=".ShowDataActivity" />
+        <activity android:name=".ActivitySelectDoctor"/>
     </application>
 
 </manifest>
