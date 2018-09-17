@@ -1,3 +1,6 @@
 <resources>
     <string name="app_name">SES_1B_Group2</string>
+    <string name="selectfile">Select File</string>
+    <string name="no_file_is_selected">No File is Selected</string>
+    <string name="upload">Upload</string>
 </resources>
