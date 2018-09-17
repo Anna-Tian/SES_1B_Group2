@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="doctor_list">
+
+            <item>Dr. Alan Eggleston</item>
+            <item>Dr. Alfred Walter Campbell</item>
+            <item>Dr. Andrew McDonald</item>
+             <item>Dr. Andrew Rochford</item>
+        <item>Dr. Anna Donald</item>
+        <item>Dr. Arthur Alfred Lynch</item>
+        <item>Dr. Arthur Colvin</item>
+        <item>Dr. Barry Marshall</item>
+        <item>Dr. Basil Hetzel</item>
+        <item>Dr. Bob Brown</item>
+    </string-array>
+</resources>
