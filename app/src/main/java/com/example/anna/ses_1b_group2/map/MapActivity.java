@@ -17,6 +17,7 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.EditText;
 import android.widget.FrameLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -58,7 +59,20 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
                 return;
             }
             mMap.setMyLocationEnabled(true);
+            mMap.getUiSettings().setZoomControlsEnabled(true);
 //            mMap.getUiSettings().setMyLocationButtonEnabled(false);
+
+            LatLng mf1 = new LatLng(-33.883965, 151.198952);
+            googleMap.addMarker(new MarkerOptions().position(mf1).title("Medical Facilities 1"));
+            googleMap.moveCamera(CameraUpdateFactory.newLatLng(mf1));
+
+            LatLng mf2 = new LatLng(-33.884101, 151.198982);
+            googleMap.addMarker(new MarkerOptions().position(mf2).title("Medical Facilities 2"));
+            googleMap.moveCamera(CameraUpdateFactory.newLatLng(mf2));
+
+            LatLng mf3 = new LatLng(-33.883881, 151.199773);
+            googleMap.addMarker(new MarkerOptions().position(mf3).title("Medical Facilities 3"));
+            googleMap.moveCamera(CameraUpdateFactory.newLatLng(mf3));
         }
     }
 
@@ -67,7 +81,7 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
     private static final String COURSE_LOCATION = Manifest.permission.ACCESS_COARSE_LOCATION;
     private static final int LOCATION_PERMISSION_REQUEST_CODE = 1234;
     private static final float DEFAULT_ZOOM = 15f;
-    private final LatLng mDefaultLocation = new LatLng(-33.8523341, 151.2106085);
+
     //vars
     private Boolean mLocationPermissionsGranted = false;
     private GoogleMap mMap;
@@ -77,6 +91,7 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_map);
+
         getLocationPermission();
     }
 
@@ -105,6 +120,9 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
             Log.e(TAG, "getDeviceLocation: SecurityException: " + e.getMessage() );
         }
     }
+
+
+
     private void moveCamera(LatLng latLng, float zoom){
         Log.d(TAG, "moveCamera: moving the camera to: lat: " + latLng.latitude + ", lng: " + latLng.longitude );
         mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(latLng, zoom));

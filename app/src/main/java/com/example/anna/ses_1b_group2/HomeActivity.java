@@ -12,6 +12,7 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.anna.ses_1b_group2.hr.HeartRateActivity;
 import com.example.anna.ses_1b_group2.login.LoginActivity;
 import com.example.anna.ses_1b_group2.login.SignOutActivity;
 import com.example.anna.ses_1b_group2.map.MapActivity;
@@ -33,7 +34,7 @@ public class HomeActivity extends AppCompatActivity {
     private static final String TAG = "HomeActivity";
     private Context mContext = HomeActivity.this;
     private TextView mPatientName, linkSignOut;
-    private Button btnProfile, btnMap;
+    private Button btnProfile, btnHR, btnMap;
     //firebase
     private FirebaseAuth mAuth;
     private FirebaseAuth.AuthStateListener mAuthListener;
@@ -42,7 +43,6 @@ public class HomeActivity extends AppCompatActivity {
     private FirebaseMethods mFirebaseMethods;
 
     private UserSettings mUserSettings;
-
     private static final int ERROR_DIALOG_REQUEST = 9001;
 
 
@@ -55,6 +55,7 @@ public class HomeActivity extends AppCompatActivity {
         mPatientName = (TextView)findViewById(R.id.patientName);
         linkSignOut = (TextView) findViewById(R.id.profile_SignOut);
         btnProfile = (Button) findViewById(R.id.btn_profile);
+        btnHR = (Button) findViewById(R.id.btn_hr);
         btnMap = (Button) findViewById(R.id.btn_map);
 
         linkSignOut.setOnClickListener(new View.OnClickListener() {
@@ -75,11 +76,19 @@ public class HomeActivity extends AppCompatActivity {
             }
         });
 
+        btnHR.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Log.d(TAG, "onClick: navigating to HeartRateActivity");
+                Intent intent = new Intent(mContext, HeartRateActivity.class);
+                startActivity(intent);
+            }
+        });
+
         //map function
         if (isServicesOK()){
             initMap();
         }
-
         setupFirebaseAuth();
     }
 
