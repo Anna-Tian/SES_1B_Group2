@@ -19,6 +19,13 @@
         <activity android:name=".HearRateDataActivity" />
         <activity android:name=".ShowDataActivity" />
         <activity android:name=".ActivitySelectDoctor"/>
+        <activity android:name=".login.LoginActivity"></activity>
+        <activity android:name=".login.RegisterActivity"></activity>
+        <activity android:name=".login.SignOutActivity"></activity>
+        <activity android:name=".profile.ProfileActivity"></activity>
+        <activity android:name=".profile.EditProfileActivity"></activity>
+
+
     </application>
 
 </manifest>
