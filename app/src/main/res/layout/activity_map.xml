@@ -56,5 +56,33 @@
         android:id="@+id/map"
         tools:context=".map.MapActivity"
         android:name="com.google.android.gms.maps.SupportMapFragment" />
+    <!--<RelativeLayout-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="50dp"-->
+        <!--android:layout_marginTop="10dp"-->
+        <!--android:layout_marginRight="10dp"-->
+        <!--android:layout_marginLeft="10dp"-->
+        <!--android:elevation="10dp"-->
+        <!--android:background="@color/white"-->
+        <!--android:id="@+id/relLayout1">-->
+        <!--<ImageView-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:id="@+id/ic_magnify"-->
+            <!--android:layout_centerVertical="true"-->
+            <!--android:layout_marginLeft="10dp"-->
+            <!--android:layout_marginRight="10dp"-->
+            <!--android:src="@drawable/ic_magnify"/>-->
+        <!--<EditText-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="match_parent"-->
+            <!--android:layout_toRightOf="@+id/ic_magnify"-->
+            <!--android:layout_centerVertical="true"-->
+            <!--android:textSize="18sp"-->
+            <!--android:textColor="@color/black"-->
+            <!--android:id="@+id/input_search"-->
+            <!--android:background="@null"-->
+            <!--android:hint="Enter Medical Facility"/>-->
+    <!--</RelativeLayout>-->
 
 </RelativeLayout>
