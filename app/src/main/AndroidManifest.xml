@@ -25,6 +25,7 @@
         <activity android:name=".profile.ProfileActivity"></activity>
         <activity android:name=".profile.EditProfileActivity"></activity>
         <activity android:name=".MainActivity"></activity>
+        <activity android:name=".map.MapActivity"></activity>
 
 
 
