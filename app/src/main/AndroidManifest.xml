@@ -2,6 +2,12 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.anna.ses_1b_group2">
 
+
+    <uses-permission android:name="android.permission.INTERNET"/>
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"/>
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
+
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -9,6 +15,15 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+
+        <meta-data
+            android:name="com.google.android.geo.API_KEY"
+            android:value="AIzaSyD2G-tV84BKE6ST52FZv1IClbLBK9zlD8I"/>
+
+        <meta-data
+            android:name="com.google.android.gms.version"
+            android:value="@integer/google_play_services_version" />
+
         <activity android:name=".HomeActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -16,15 +31,15 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".HearRateDataActivity" />
-        <activity android:name=".ShowDataActivity" />
-        <activity android:name=".ActivitySelectDoctor"/>
+        <activity android:name=".hr.HeartRateActivity"></activity>
+        <activity android:name=".hr.HearRateDataActivity" />
+        <activity android:name=".hr.ShowDataActivity" />
+        <activity android:name=".hr.ActivitySelectDoctor"/>
         <activity android:name=".login.LoginActivity"></activity>
         <activity android:name=".login.RegisterActivity"></activity>
         <activity android:name=".login.SignOutActivity"></activity>
         <activity android:name=".profile.ProfileActivity"></activity>
         <activity android:name=".profile.EditProfileActivity"></activity>
-        <activity android:name=".MainActivity"></activity>
         <activity android:name=".map.MapActivity"></activity>
 
 
