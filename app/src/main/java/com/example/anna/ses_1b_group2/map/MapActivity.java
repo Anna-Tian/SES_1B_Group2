@@ -3,6 +3,7 @@ package com.example.anna.ses_1b_group2.map;
 import android.Manifest;
 import android.app.Dialog;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.location.Location;
 import android.os.Bundle;
@@ -19,10 +20,13 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.FrameLayout;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.anna.ses_1b_group2.HomeActivity;
 import com.example.anna.ses_1b_group2.R;
+import com.example.anna.ses_1b_group2.profile.ProfileActivity;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.GoogleApiAvailability;
 import com.google.android.gms.common.api.GoogleApiClient;
@@ -45,11 +49,22 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 
 public class MapActivity extends AppCompatActivity implements OnMapReadyCallback {
+    private ImageView iconHome;
+
     @Override
     public void onMapReady(GoogleMap googleMap) {
         Toast.makeText(this, "Map is Ready", Toast.LENGTH_SHORT).show();
         Log.d(TAG, "onMapReady: map is ready");
         mMap = googleMap;
+        iconHome = (ImageView) findViewById(R.id.icHome);
+
+        iconHome.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(MapActivity.this, HomeActivity.class);
+                startActivity(intent);
+            }
+        });
 
         if (mLocationPermissionsGranted) {
             getDeviceLocation();
