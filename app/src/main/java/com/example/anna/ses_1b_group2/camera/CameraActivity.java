@@ -1,9 +1,9 @@
-package com.example.anna.ses_1b_group2;
+package com.example.anna.ses_1b_group2.camera;
 
 import android.app.Activity;
-import android.content.Intent;
 import android.os.Bundle;
-import android.view.View;
+
+import com.example.anna.ses_1b_group2.R;
 
 public class CameraActivity extends Activity {
 
