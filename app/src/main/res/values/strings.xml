@@ -5,6 +5,7 @@
     <!--Firebase Database fields-->
     <string name="dbname_user">user</string>
     <string name="dbname_user_profile">user_profile</string>
+    <string name="dbname_doctor">doctor</string>
 
     <string name="field_username">username</string>
     <string name="field_email">email</string>

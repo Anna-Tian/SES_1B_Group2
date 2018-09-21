@@ -12,10 +12,9 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.example.anna.ses_1b_group2.HomeActivity;
+import com.example.anna.ses_1b_group2.PatientHomeActivity;
 import com.example.anna.ses_1b_group2.R;
-import com.example.anna.ses_1b_group2.login.LoginActivity;
-import com.example.anna.ses_1b_group2.models.User;
+import com.example.anna.ses_1b_group2.login.PatientLoginActivity;
 import com.example.anna.ses_1b_group2.models.UserProfile;
 import com.example.anna.ses_1b_group2.models.UserSettings;
 import com.example.anna.ses_1b_group2.utils.FirebaseMethods;
@@ -63,7 +62,7 @@ public class ProfileActivity extends AppCompatActivity{
             @Override
             public void onClick(View view) {
                 Log.d(TAG, "onClick: navigating to HomePage");
-                Intent intent = new Intent(mContext, HomeActivity.class);
+                Intent intent = new Intent(mContext, PatientHomeActivity.class);
                 startActivity(intent);
             }
         });
@@ -130,7 +129,7 @@ public class ProfileActivity extends AppCompatActivity{
                     // user is signed out
                     Log.d(TAG, "onAuthStateChanged: signed_out");
 
-                    Intent intent = new Intent(mContext,LoginActivity.class);
+                    Intent intent = new Intent(mContext,PatientLoginActivity.class);
                     startActivity(intent);
                 }
             }

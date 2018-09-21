@@ -8,7 +8,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 
-import com.example.anna.ses_1b_group2.HomeActivity;
+import com.example.anna.ses_1b_group2.PatientHomeActivity;
 import com.example.anna.ses_1b_group2.R;
 
 public class HeartRateActivity extends AppCompatActivity {
@@ -27,7 +27,7 @@ public class HeartRateActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Log.d(TAG, "onClick: navigating to HomePage");
-                Intent intent = new Intent(HeartRateActivity.this, HomeActivity.class);
+                Intent intent = new Intent(HeartRateActivity.this, PatientHomeActivity.class);
                 startActivity(intent);
             }
         });

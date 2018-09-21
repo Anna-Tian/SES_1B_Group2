@@ -13,7 +13,7 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.example.anna.ses_1b_group2.HomeActivity;
+import com.example.anna.ses_1b_group2.PatientHomeActivity;
 import com.example.anna.ses_1b_group2.R;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -21,25 +21,27 @@ import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
-public class LoginActivity extends AppCompatActivity {
-    private static final String TAG = "LoginActivity";
+public class PatientLoginActivity extends AppCompatActivity {
+    private static final String TAG = "PatientLoginActivity";
     private Context mContext;
     private ProgressBar mProgressBar;
     private EditText mEmail, mPassword;
     private TextView mPleaseWait;
+
+    //firebase
     private FirebaseAuth mAuth;
     private FirebaseAuth.AuthStateListener mAuthListener;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_login);
+        setContentView(R.layout.activity_p_login);
 
         mProgressBar = (ProgressBar) findViewById(R.id.progressBar);
         mPleaseWait = (TextView) findViewById(R.id.pleaseWait);
         mEmail = (EditText) findViewById(R.id.input_email);
         mPassword = (EditText) findViewById(R.id.input_password);
-        mContext = LoginActivity.this;
+        mContext = PatientLoginActivity.this;
 
         Log.d(TAG, "onCreate: start");
 
@@ -59,7 +61,6 @@ public class LoginActivity extends AppCompatActivity {
     }
 
 
-
     /**
      * -------------------------------Firebase---------------------------------------
      */
@@ -72,7 +73,7 @@ public class LoginActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Log.d(TAG, "onClick: attempting to log in.");
-                String email = mEmail.getText().toString();
+                final String email = mEmail.getText().toString();
                 String password = mPassword.getText().toString();
 
                 if(isStringNull(email) && isStringNull(password)){
@@ -82,16 +83,16 @@ public class LoginActivity extends AppCompatActivity {
                     mPleaseWait.setVisibility(View.VISIBLE);
 
                     mAuth.signInWithEmailAndPassword(email, password)
-                            .addOnCompleteListener(LoginActivity.this, new OnCompleteListener<AuthResult>() {
+                            .addOnCompleteListener(PatientLoginActivity.this, new OnCompleteListener<AuthResult>() {
                                 @Override
                                 public void onComplete(@NonNull Task<AuthResult> task) {
                                     if (task.isSuccessful()) {
                                         // Sign in success, update UI with the signed-in user's information
                                         Log.d(TAG, "signInWithEmail:success");
-                                        Toast.makeText(LoginActivity.this, "Welcome back! ",Toast.LENGTH_SHORT).show();
 
-                                        // if the user is logged in, then navigate to MeActivity and call 'finish()'
-                                        Intent intent = new Intent(LoginActivity.this, HomeActivity.class);
+                                        Toast.makeText(PatientLoginActivity.this, "Welcome back! ",Toast.LENGTH_SHORT).show();
+                                        // if the user email is not match to the doctor register email, then navigate to MeActivity and call 'finish()'
+                                        Intent intent = new Intent(PatientLoginActivity.this, PatientHomeActivity.class);
                                         startActivity(intent);
                                         finish();
 
@@ -100,7 +101,7 @@ public class LoginActivity extends AppCompatActivity {
                                     } else {
                                         // If sign in fails, display a message to the user.
                                         Log.w(TAG, "signInWithEmail:failure", task.getException());
-                                        Toast.makeText(LoginActivity.this, "Authentication failed.",
+                                        Toast.makeText(PatientLoginActivity.this, "Authentication failed.",
                                                 Toast.LENGTH_SHORT).show();
                                         mProgressBar.setVisibility(View.GONE);
                                         mPleaseWait.setVisibility(View.GONE);
@@ -112,17 +113,29 @@ public class LoginActivity extends AppCompatActivity {
 
         });
         if(mAuth.getCurrentUser() != null){
-            Intent intent = new Intent(LoginActivity.this, HomeActivity.class);
+            Toast.makeText(PatientLoginActivity.this, "Welcome back! ",Toast.LENGTH_SHORT).show();
+            // if the user email is not match to the doctor register email, then navigate to MeActivity and call 'finish()'
+            Intent intent = new Intent(PatientLoginActivity.this, PatientHomeActivity.class);
             startActivity(intent);
             finish();
         }
 
-        TextView linkSignUp = (TextView) findViewById(R.id.link_register);
-        linkSignUp.setOnClickListener(new View.OnClickListener() {
+        TextView linkSignUpPatient = (TextView) findViewById(R.id.link_register_patient);
+        linkSignUpPatient.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Log.d(TAG, "onClick: navigating to register screen");
-                Intent intent = new Intent(LoginActivity.this, RegisterActivity.class);
+                Log.d(TAG, "onClick: navigating to patient register screen");
+                Intent intent = new Intent(PatientLoginActivity.this, PatientRegisterActivity.class);
+                startActivity(intent);
+            }
+        });
+
+        Button btnBack = (Button) findViewById(R.id.btn_back);
+        btnBack.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Log.d(TAG, "onClick: navigating to LoginSelectActivity");
+                Intent intent = new Intent(mContext, LoginSelectActivity.class);
                 startActivity(intent);
             }
         });
@@ -131,11 +144,9 @@ public class LoginActivity extends AppCompatActivity {
     /**
      * setup the Firebase auth object
      */
-
     private void setupFirebaseAuth(){
         Log.d(TAG, "setupFirebaseAuth: setting up firebase auth");
         mAuth = FirebaseAuth.getInstance();
-
         mAuthListener = new FirebaseAuth.AuthStateListener() {
             @Override
             public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
@@ -150,6 +161,8 @@ public class LoginActivity extends AppCompatActivity {
                 }
             }
         };
+
+
     }
     @Override
     public void onStart() {

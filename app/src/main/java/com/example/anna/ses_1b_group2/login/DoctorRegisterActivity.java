@@ -15,7 +15,6 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.anna.ses_1b_group2.R;
-import com.example.anna.ses_1b_group2.models.User;
 import com.example.anna.ses_1b_group2.utils.FirebaseMethods;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -26,12 +25,11 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 
-public class RegisterActivity extends AppCompatActivity{
-    private static final String TAG = "RegisterActivity";
-
+public class DoctorRegisterActivity extends AppCompatActivity{
+    private static final String TAG = "DoctorRegisterActivity";
     private Context mContext;
-    private String email, username, password, phone, profile_photo, description, address;
-    private EditText mEmail, mPassword, mUsername;
+    private String email, username, medical_field, password;
+    private EditText mEmail, mPassword, mMedicalField, mUsername;
     private Button btnRegister;
     private String append = "";
     private ProgressBar mProgressBar;
@@ -46,8 +44,8 @@ public class RegisterActivity extends AppCompatActivity{
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_register);
-        mContext = RegisterActivity.this;
+        setContentView(R.layout.activity_d_register);
+        mContext = DoctorRegisterActivity.this;
         firebaseMethods = new FirebaseMethods(mContext);
         Log.d(TAG, "onCreate: start");
 
@@ -62,9 +60,10 @@ public class RegisterActivity extends AppCompatActivity{
             public void onClick(View v) {
                 email = mEmail.getText().toString();
                 username = mUsername.getText().toString();
+                medical_field = mMedicalField.getText().toString();
                 password = mPassword.getText().toString();
 
-                if (checkInputs(email,username,password)){
+                if (checkInputs(email,username, medical_field, password)){
                     mProgressBar.setVisibility(View.VISIBLE);
                     loadingPleaseWait.setVisibility(View.VISIBLE);
 
@@ -74,9 +73,9 @@ public class RegisterActivity extends AppCompatActivity{
         });
     }
 
-    private boolean checkInputs (String email, String username, String password){
+    private boolean checkInputs (String email, String username, String medical_field, String password){
         Log.d(TAG, "checkInputs: checking inputs for null values.");
-        if (email.equals("") || username.equals("") || password.equals("")){
+        if (email.equals("") || username.equals("") || password.equals("") || medical_field.equals("")){
             Toast.makeText(mContext, "Please fill all fields.", Toast.LENGTH_SHORT).show();
             return false;
         }
@@ -89,13 +88,14 @@ public class RegisterActivity extends AppCompatActivity{
         mUsername = (EditText) findViewById(R.id.input_username);
         btnRegister = (Button) findViewById(R.id.btn_register);
         mEmail = (EditText) findViewById(R.id.input_email);
+        mMedicalField = (EditText) findViewById(R.id.input_medical_field);
         mPassword = (EditText) findViewById(R.id.input_password);
         mProgressBar = (ProgressBar) findViewById(R.id.progressBar);
         loadingPleaseWait = (TextView) findViewById(R.id.pleaseWait);
 
         mProgressBar.setVisibility(View.GONE);
         loadingPleaseWait.setVisibility(View.GONE);
-        mContext = RegisterActivity.this;
+        mContext = DoctorRegisterActivity.this;
     }
 
     private boolean isStringNull(String string){
@@ -120,7 +120,7 @@ public class RegisterActivity extends AppCompatActivity{
 
         DatabaseReference reference = FirebaseDatabase.getInstance().getReference();
         Query query = reference
-                .child(getString(R.string.dbname_user))
+                .child(getString(R.string.dbname_doctor))
                 .orderByChild(getString(R.string.field_username))
                 .equalTo(username);
         query.addListenerForSingleValueEvent(new ValueEventListener() {
@@ -128,10 +128,10 @@ public class RegisterActivity extends AppCompatActivity{
             public void onDataChange(DataSnapshot dataSnapshot) {
 
                 //add new user to the database
-                firebaseMethods.addNewUser(email,username);
+                firebaseMethods.addNewDoctor(email,username, medical_field);
                 Toast.makeText(mContext,"Welcome! " + username, Toast.LENGTH_SHORT).show();
                 mAuth.signOut();
-                Intent intent = new Intent(RegisterActivity.this, LoginActivity.class);
+                Intent intent = new Intent(DoctorRegisterActivity.this, DoctorLoginActivity.class);
                 startActivity(intent);
             }
 
