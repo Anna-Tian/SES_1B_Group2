@@ -6,6 +6,7 @@ import android.util.Log;
 import android.widget.Toast;
 
 import com.example.anna.ses_1b_group2.R;
+import com.example.anna.ses_1b_group2.models.Doctor;
 import com.example.anna.ses_1b_group2.models.User;
 import com.example.anna.ses_1b_group2.models.UserProfile;
 import com.example.anna.ses_1b_group2.models.UserSettings;
@@ -94,6 +95,17 @@ public class FirebaseMethods {
         myRef.child(mContext.getString(R.string.dbname_user_profile)).child(userID).setValue(profile);
     }
 
+    public void addNewDoctor(String email, String username, String medical_field){
+        Doctor doctor = new Doctor(
+                userID,
+                email,
+                StringManipulation.condenseUsername(username),
+                medical_field
+        );
+
+        myRef.child(mContext.getString(R.string.dbname_doctor)).child(userID).setValue(doctor);
+    }
+
     /**
      * retrives the profile from the user currently logged in
      * @param dataSnapshot
@@ -104,6 +116,7 @@ public class FirebaseMethods {
 
         UserProfile profile = new UserProfile();
         User user = new User();
+        Doctor doctor = new Doctor();
 
         for (DataSnapshot ds: dataSnapshot.getChildren()){
 
@@ -134,8 +147,22 @@ public class FirebaseMethods {
                     Log.d(TAG, "getUserSettings: NullPointerException2: " + e.getMessage());
                 }
             }
+
+            //doctor node
+            if (ds.getKey().equals(mContext.getString(R.string.dbname_doctor))){
+                Log.d(TAG, "getDoctor: snapshot key: " + ds.getKey());
+                try{
+                    doctor.setUser_id(ds.child(userID).getValue(Doctor.class).getUser_id());
+                    doctor.setEmail(ds.child(userID).getValue(Doctor.class).getEmail());
+                    doctor.setUsername(ds.child(userID).getValue(Doctor.class).getUsername());
+                    doctor.setMedical_field(ds.child(userID).getValue(Doctor.class).getMedical_field());
+                    Log.d(TAG, "getDoctor: retrieved doctor information: " + doctor.toString());
+                }catch (NullPointerException e){
+                    Log.d(TAG, "getDoctor: NullPointerException: " + e.getMessage());
+                }
+            }
         }
-        return new UserSettings(user,profile);
+        return new UserSettings(user,profile, doctor);
     }
 
     /**

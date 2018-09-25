@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".hr.ActivitySelectDoctor">
+
+
+    <TextView
+        android:id="@+id/textView_selectDoc"
+        android:layout_width="wrap_content"
+        android:layout_height="18dp"
+        android:layout_marginStart="88dp"
+        android:layout_marginTop="56dp"
+        android:text="@string/select_a_doctor"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <Spinner
+        android:id="@+id/spinnerDoctorList"
+        android:layout_width="208dp"
+        android:layout_height="21dp"
+        android:layout_marginStart="88dp"
+        android:layout_marginTop="8dp"
+        android:entries="@array/doctor_list"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView_selectDoc" />
+
+    <Button
+        android:id="@+id/button_SendDoctor"
+        android:layout_width="wrap_content"
+        android:layout_height="41dp"
+        android:layout_marginStart="88dp"
+        android:layout_marginTop="20dp"
+        android:text="Send"
+        android:background="@drawable/white_button"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/spinnerDoctorList" />
+
+    <ImageButton
+        android:id="@+id/imageButtonClose"
+        android:layout_width="70dp"
+        android:layout_height="41dp"
+        android:layout_marginEnd="88dp"
+        android:layout_marginStart="64dp"
+        android:layout_marginTop="20dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:background="@drawable/white_button"
+        app:layout_constraintStart_toEndOf="@+id/button_SendDoctor"
+        app:layout_constraintTop_toBottomOf="@+id/spinnerDoctorList"
+        app:srcCompat="@android:drawable/ic_menu_close_clear_cancel" />
+
+</android.support.constraint.ConstraintLayout>

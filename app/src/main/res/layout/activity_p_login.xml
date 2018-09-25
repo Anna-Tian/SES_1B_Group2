@@ -19,10 +19,20 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
-            android:layout_marginBottom="25dp"
+            android:layout_marginBottom="10dp"
             android:text="LOGIN"
             android:textColor="@color/colorPrimary"
             android:textSize="50sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginBottom="25dp"
+            android:text="as a patient"
+            android:textColor="@color/colorPrimary"
+            android:textSize="20sp"
             android:textStyle="bold" />
 
         <android.support.design.widget.TextInputLayout
@@ -64,36 +74,48 @@
         <!--android:textColor="@color/link_blue"-->
         <!--android:textSize="17sp" />-->
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Create account"
-        android:id="@+id/link_register"
-        android:layout_below="@+id/ln1"
-        android:textSize="17sp"
-        android:layout_marginRight="25dp"
-        android:textColor="@color/link_blue"
-        android:layout_alignParentEnd="true"/>
-
     <android.support.v7.widget.AppCompatButton
         android:id="@+id/btn_login"
-        android:layout_below="@+id/link_register"
+        android:layout_below="@+id/ln1"
         android:layout_width="200dp"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="25dp"
-        android:layout_marginTop="30dp"
+        android:layout_marginTop="20dp"
         android:layout_centerHorizontal="true"
         android:background="@drawable/white_rounded_button"
         android:padding="12dp"
         android:text="Login" />
 
+    <android.support.v7.widget.AppCompatButton
+        android:id="@+id/btn_back"
+        android:layout_below="@+id/btn_login"
+        android:layout_width="200dp"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="25dp"
+        android:layout_marginTop="10dp"
+        android:layout_centerHorizontal="true"
+        android:background="@drawable/white_rounded_button"
+        android:padding="12dp"
+        android:text="Back" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Create account"
+        android:id="@+id/link_register_patient"
+        android:layout_below="@+id/btn_back"
+        android:textSize="17sp"
+        android:layout_marginLeft="25dp"
+        android:textColor="@color/link_blue"
+        android:layout_alignParentStart="true"/>
+
+
     <ProgressBar
+        android:id="@+id/progressBar"
         android:layout_width="200dp"
         android:layout_height="200dp"
-        android:id="@+id/progressBar"
-        android:layout_marginTop="145dp"
+        android:layout_alignBottom="@+id/ln1"
         android:layout_centerHorizontal="true"
-        android:paddingBottom="20dp"/>
+        android:paddingBottom="20dp" />
 
     <TextView
         android:layout_width="wrap_content"

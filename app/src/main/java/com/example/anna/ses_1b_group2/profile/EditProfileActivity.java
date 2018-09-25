@@ -8,15 +8,12 @@ import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
-import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
-import android.widget.TextView;
 import android.widget.Toast;
 
-import com.example.anna.ses_1b_group2.HomeActivity;
 import com.example.anna.ses_1b_group2.R;
-import com.example.anna.ses_1b_group2.login.LoginActivity;
+import com.example.anna.ses_1b_group2.login.PatientLoginActivity;
 import com.example.anna.ses_1b_group2.models.UserProfile;
 import com.example.anna.ses_1b_group2.models.UserSettings;
 import com.example.anna.ses_1b_group2.utils.FirebaseMethods;
@@ -161,7 +158,7 @@ public class EditProfileActivity extends AppCompatActivity {
                     // user is signed out
                     Log.d(TAG, "onAuthStateChanged: signed_out");
 
-                    Intent intent = new Intent(mContext,LoginActivity.class);
+                    Intent intent = new Intent(mContext,PatientLoginActivity.class);
                     startActivity(intent);
                 }
             }

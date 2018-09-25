@@ -7,66 +7,48 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.ProgressBar;
-import android.widget.TextView;
 
 import com.example.anna.ses_1b_group2.R;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
-public class SignOutActivity extends AppCompatActivity {
-    private static final String TAG = "SignOutActivity";
+public class LoginSelectActivity extends AppCompatActivity {
+    private static final String TAG = "LoginSelectActivity";
+    private Context mContext = LoginSelectActivity.this;
+    private Button btnLoginPatient, btnLoginDoctor;
 
     //firebase
     private FirebaseAuth mAuth;
     private FirebaseAuth.AuthStateListener mAuthListener;
 
-    private ProgressBar mProgressBar;
-    private TextView tvSigningOut;
-    private Context mContext = SignOutActivity.this;
-
-
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_signout);
-        Log.d(TAG, "onCreate: started");
+        setContentView(R.layout.activity_login_select);
 
-        mProgressBar = (ProgressBar) findViewById(R.id.progressBar);
-        Button btnConfirmSignOut = (Button) findViewById(R.id.btnConfirmSignout);
-        Button btnCancelSignOut = (Button) findViewById(R.id.btnCancelSignout);
-        tvSigningOut = (TextView) findViewById(R.id.tvSigningOut);
+        btnLoginPatient = (Button)findViewById(R.id.btn_login_patient);
+        btnLoginDoctor = (Button)findViewById(R.id.btn_login_doctor);
 
-        mProgressBar.setVisibility(View.GONE);
-        tvSigningOut.setVisibility(View.GONE);
-
-        btnConfirmSignOut.setOnClickListener(new View.OnClickListener() {
+        btnLoginPatient.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v) {
-                Log.d(TAG, "onClick: attempting to sign out.");
-                mProgressBar.setVisibility(View.VISIBLE);
-                tvSigningOut.setVisibility(View.VISIBLE);
-
-                mAuth.signOut();
-                finish();
+            public void onClick(View view) {
+                Intent intent = new Intent(mContext, PatientLoginActivity.class);
+                startActivity(intent);
             }
         });
-
-        btnCancelSignOut.setOnClickListener(new View.OnClickListener() {
+        btnLoginDoctor.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v) {
-                Log.d(TAG, "onClick: navigating back to 'PatientHomeActivity'");
-                finish();
+            public void onClick(View view) {
+                Intent intent = new Intent(mContext, DoctorLoginActivity.class);
+                startActivity(intent);
             }
         });
 
         setupFirebaseAuth();
-
     }
+
 
     /*
     -----------Firebase-----------------
@@ -86,14 +68,10 @@ public class SignOutActivity extends AppCompatActivity {
                 if (user != null) {
                     // user is signed in
                     Log.d(TAG, "onAuthStateChanged: signed_in: " + user.getUid());
+                    mAuth.signOut();
                 } else {
                     // user is signed out
                     Log.d(TAG, "onAuthStateChanged: signed_out");
-
-                    Log.d(TAG, "onAuthStateChanged: navigating back to PatientLoginActivity.");
-                    Intent intent = new Intent(mContext, LoginSelectActivity.class);
-                    intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-                    startActivity(intent);
                 }
             }
         };
