@@ -1,19 +1,33 @@
 package com.example.anna.ses_1b_group2;
 
+import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
+import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.Button;
 import android.widget.TextView;
 
 import com.example.anna.ses_1b_group2.login.PatientLoginActivity;
+import com.example.anna.ses_1b_group2.camera.MediaActivity;
+import com.example.anna.ses_1b_group2.login.SignOutActivity;
+import android.widget.Toast;
+import android.widget.VideoView;
+
+import com.example.anna.ses_1b_group2.camera.VideoListActivity;
+import com.example.anna.ses_1b_group2.hr.HeartRateActivity;
 import com.example.anna.ses_1b_group2.login.SignOutActivity;
 import com.example.anna.ses_1b_group2.models.Doctor;
+import com.example.anna.ses_1b_group2.map.MapActivity;
+import com.example.anna.ses_1b_group2.models.UserProfile;
 import com.example.anna.ses_1b_group2.models.UserSettings;
 import com.example.anna.ses_1b_group2.utils.FirebaseMethods;
+import com.google.android.gms.common.ConnectionResult;
+import com.google.android.gms.common.GoogleApiAvailability;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
@@ -34,6 +48,7 @@ public class DoctorHomeActivity extends AppCompatActivity {
     private FirebaseMethods mFirebaseMethods;
 
     private UserSettings mUserSettings;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -57,13 +72,13 @@ public class DoctorHomeActivity extends AppCompatActivity {
         setupFirebaseAuth();
     }
 
-
     private void setProfileWidgets(UserSettings userSettings){
 
         mUserSettings = userSettings;
         Doctor doctor = userSettings.getDoctor();
         mDoctorName.setText(doctor.getUsername());
     }
+
 
     /**
      * -------------------------------Firebase---------------------------------------
