@@ -26,6 +26,7 @@ import com.example.anna.ses_1b_group2.utils.RotateBitmap;
 import com.example.anna.ses_1b_group2.utils.UniversalImageLoader;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
@@ -201,7 +202,9 @@ public class PostFragment extends Fragment implements SelectPhotoDialog.OnPhotoS
                 Toast.makeText(getActivity(), "Post Success", Toast.LENGTH_SHORT).show();
 
                 //insert the download url into the firebase database
-                Uri firebaseUri = taskSnapshot.getDownloadUrl();
+                Task<Uri> firebaseUri = taskSnapshot.getStorage().getDownloadUrl();
+
+//                Uri firebaseUri = taskSnapshot.getDownloadUrl();
 
                 Log.d(TAG, "onSuccess: firebase download url: " + firebaseUri.toString());
                 DatabaseReference reference = FirebaseDatabase.getInstance().getReference();

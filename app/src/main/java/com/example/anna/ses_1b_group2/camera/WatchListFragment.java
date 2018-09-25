@@ -63,7 +63,7 @@ public class WatchListFragment extends Fragment {
 
         //reference for listening when items are added or removed from the watch list
         mReference = FirebaseDatabase.getInstance().getReference()
-                .child(getString(R.string.))
+                .child(getString(R.string.post_id))
                 .child(FirebaseAuth.getInstance().getCurrentUser().getUid());
 
         //set the listener to the reference
