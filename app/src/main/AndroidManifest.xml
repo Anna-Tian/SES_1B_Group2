@@ -15,11 +15,6 @@
         android:theme="@style/AppTheme"
         android:fullBackupContent="true">
 
-        <activity android:name=".CameraActivity">
-
-        android:roundIcon="@mipmap/ic_launcher_round"
-        android:supportsRtl="true"
-        android:theme="@style/AppTheme">
         <activity android:name=".HomeActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -32,6 +27,13 @@
         <activity android:name=".login.SignOutActivity"></activity>
         <activity android:name=".profile.ProfileActivity"></activity>
         <activity android:name=".profile.EditProfileActivity"></activity>
+        <activity android:name=".camera.MediaActivity"></activity>
+        <activity android:name=".CameraListActivity"></activity>
+        <activity android:name=".CameraActivity"
+
+            android:roundIcon="@mipmap/ic_launcher_round"
+            android:supportsRtl="true"
+            android:theme="@style/AppTheme"/>
 
 
     </application>

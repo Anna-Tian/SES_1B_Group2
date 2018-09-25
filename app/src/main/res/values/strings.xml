@@ -12,7 +12,7 @@
     <string name="date">Time</string>
     <string name="recordId">Name</string>
     <string name="intro_message">error</string>
-    <!--Firebase Database fields-->
+
     <string name="dbname_user">user</string>
     <string name="dbname_user_profile">user_profile</string>
 
@@ -24,6 +24,13 @@
     <string name="field_height">height</string>
     <string name="field_medical_condition">medical_condition</string>
     <string name="field_weight">weight</string>
+    <string name="dialog_select_photo">select photo</string>
+    <string name="fragment_post">Post</string>
+    <string name="fragment_view_post">Post</string>
+    <string name="fragment_account">Account</string>
+    <string name="fragment_search">Search</string>
+    <string name="fragment_watch_list">Watch List</string>
+
 
 
 </resources>

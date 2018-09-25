@@ -10,6 +10,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
+import com.example.anna.ses_1b_group2.camera.MediaActivity;
 import com.example.anna.ses_1b_group2.login.LoginActivity;
 import com.example.anna.ses_1b_group2.login.SignOutActivity;
 import com.example.anna.ses_1b_group2.models.UserProfile;
@@ -29,6 +30,7 @@ public class HomeActivity extends AppCompatActivity {
     private Context mContext = HomeActivity.this;
     private TextView mPatientName, linkSignOut;
     private Button btnProfile;
+    private Button btnMedia;
     //firebase
     private FirebaseAuth mAuth;
     private FirebaseAuth.AuthStateListener mAuthListener;
@@ -63,6 +65,15 @@ public class HomeActivity extends AppCompatActivity {
             public void onClick(View view) {
                 Log.d(TAG, "onClick: navigating to SignOutActivity");
                 Intent intent = new Intent(mContext, ProfileActivity.class);
+                startActivity(intent);
+            }
+        });
+
+        btnProfile.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Log.d(TAG, "onClick: navigating to SignOutActivity");
+                Intent intent = new Intent(mContext, MediaActivity.class);
                 startActivity(intent);
             }
         });
