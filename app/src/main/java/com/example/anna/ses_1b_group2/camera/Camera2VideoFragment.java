@@ -1,6 +1,5 @@
-package com.example.anna.ses_1b_group2;
+package com.example.anna.ses_1b_group2.camera;
 
-import android.Manifest;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.Dialog;
@@ -26,7 +25,6 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.HandlerThread;
 import android.support.annotation.NonNull;
-import android.support.v13.app.FragmentCompat;
 import android.support.v4.app.ActivityCompat;
 import android.util.Log;
 import android.util.Size;
@@ -39,6 +37,8 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.Toast;
 
+import com.example.anna.ses_1b_group2.R;
+
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -46,10 +46,9 @@ import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 import java.util.concurrent.Semaphore;
-import java.util.concurrent.TimeUnit;
 
 public class Camera2VideoFragment extends Fragment
-        implements View.OnClickListener, FragmentCompat.OnRequestPermissionsResultCallback {
+        implements View.OnClickListener {
 
     private static final int SENSOR_ORIENTATION_DEFAULT_DEGREES = 90;
     private static final int SENSOR_ORIENTATION_INVERSE_DEGREES = 270;
@@ -82,12 +81,12 @@ public class Camera2VideoFragment extends Fragment
     private Button mButtonVideo;
 
     /**
-     * A reference to the opened {@link android.hardware.camera2.CameraDevice}.
+     * A reference to the opened {@link CameraDevice}.
      */
     private CameraDevice mCameraDevice;
 
     /**
-     * A reference to the current {@link android.hardware.camera2.CameraCaptureSession} for
+     * A reference to the current {@link CameraCaptureSession} for
      * preview.
      */
     private CameraCaptureSession mPreviewSession;
@@ -123,12 +122,12 @@ public class Camera2VideoFragment extends Fragment
     };
 
     /**
-     * The {@link android.util.Size} of camera preview.
+     * The {@link Size} of camera preview.
      */
     private Size mPreviewSize;
 
     /**
-     * The {@link android.util.Size} of video recording.
+     * The {@link Size} of video recording.
      */
     private Size mVideoSize;
 
@@ -462,7 +461,7 @@ public class Camera2VideoFragment extends Fragment
     }
 
     /**
-     * Configures the necessary {@link android.graphics.Matrix} transformation to `mTextureView`.
+     * Configures the necessary {@link Matrix} transformation to `mTextureView`.
      * This method should not to be called until the camera preview size is determined in
      * openCamera, or until the size of `mTextureView` is fixed.
      *

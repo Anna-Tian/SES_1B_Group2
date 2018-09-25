@@ -1,4 +1,4 @@
-package com.example.anna.ses_1b_group2;
+package com.example.anna.ses_1b_group2.camera;
 
 
 import android.content.Context;
