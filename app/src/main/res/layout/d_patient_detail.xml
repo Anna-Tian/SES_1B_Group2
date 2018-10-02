@@ -1,41 +1,46 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.constraint.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".patient_profile">
+    android:layout_height="match_parent">
 
     <TextView
-        android:id="@+id/textView"
+        android:id="@+id/textViewDate"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="28dp"
-        android:layout_marginStart="28dp"
-        android:layout_marginTop="40dp"
-        android:text="Date 1 when the packet was sent "
+        android:layout_marginLeft="16dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="8dp"
+        android:text="Date"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
-        android:id="@+id/textView2"
-        android:layout_width="286dp"
-        android:layout_height="85dp"
-        android:layout_marginLeft="8dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="10dp"
-        android:text="Details of the patient's profile"
+        android:id="@+id/textViewPatientDetails"
+        android:layout_width="340dp"
+        android:layout_height="123dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginLeft="28dp"
+        android:layout_marginRight="16dp"
+        android:layout_marginStart="28dp"
+        android:layout_marginTop="9dp"
+        android:text="Patient Details"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView" />
+        app:layout_constraintTop_toBottomOf="@+id/textViewDate" />
 
     <Button
-        android:id="@+id/button7"
+        android:id="@+id/buttonFeedback"
         android:layout_width="wrap_content"
-        android:layout_height="42dp"
-        android:text="Feedback"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="16dp"
+        android:layout_marginRight="16dp"
+        android:layout_marginTop="8dp"
+        android:text="FeedBack"
+        android:textAllCaps="false"
         android:background="@drawable/white_button"
-        tools:layout_editor_absoluteX="249dp"
-        tools:layout_editor_absoluteY="168dp" />
-
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textViewPatientDetails" />
 </android.support.constraint.ConstraintLayout>

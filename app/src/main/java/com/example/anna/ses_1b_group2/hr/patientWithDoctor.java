@@ -1,10 +1,12 @@
 package com.example.anna.ses_1b_group2.hr;
+import java.io.Serializable;
 
-public class patientWithDoctor {
+public class patientWithDoctor implements Serializable{
 
     heartRateData hrd;
     String doctorName;
-
+    public patientWithDoctor()
+    {}
     public patientWithDoctor(heartRateData hrd, String doctorName) {
         this.hrd = hrd;
         this.doctorName = doctorName;

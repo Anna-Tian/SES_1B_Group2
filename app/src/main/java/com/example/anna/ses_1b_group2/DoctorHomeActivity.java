@@ -9,9 +9,15 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.EditText;
+import android.widget.ListView;
 import android.widget.TextView;
 
+import com.example.anna.ses_1b_group2.feedback.DoctorEndPatientIntroActivity;
+import com.example.anna.ses_1b_group2.hr.patientWithDoctor;
 import com.example.anna.ses_1b_group2.login.PatientLoginActivity;
 import com.example.anna.ses_1b_group2.camera.MediaActivity;
 import com.example.anna.ses_1b_group2.login.SignOutActivity;
@@ -25,6 +31,7 @@ import com.example.anna.ses_1b_group2.models.Doctor;
 import com.example.anna.ses_1b_group2.map.MapActivity;
 import com.example.anna.ses_1b_group2.models.UserProfile;
 import com.example.anna.ses_1b_group2.models.UserSettings;
+import com.example.anna.ses_1b_group2.models.newObject;
 import com.example.anna.ses_1b_group2.utils.FirebaseMethods;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.GoogleApiAvailability;
@@ -35,6 +42,9 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class DoctorHomeActivity extends AppCompatActivity {
     private static final String TAG = "DoctorHomeActivity";
@@ -47,6 +57,17 @@ public class DoctorHomeActivity extends AppCompatActivity {
     private DatabaseReference myRef;
     private FirebaseMethods mFirebaseMethods;
 
+    DatabaseReference doctorname;
+    DatabaseReference patientlist;
+    List<Doctor> listdotor;
+    List<patientWithDoctor> patientDoctor;
+    TextView textViewDoctorName;
+    ListView patient_listview;
+    EditText editTextMedicalField;
+    Button edit;
+    Doctor updateDoctor;
+
+
     private UserSettings mUserSettings;
 
 
@@ -57,8 +78,18 @@ public class DoctorHomeActivity extends AppCompatActivity {
         Log.d(TAG, "onCreate: starting");
 
         mDoctorName = (TextView)findViewById(R.id.doctorName);
-        mMedicalField = (TextView)findViewById(R.id.tv_medical_field);
+        mMedicalField = (TextView)findViewById(R.id.et_medical_field);
         linkSignOut = (TextView) findViewById(R.id.profile_SignOut);
+
+
+        textViewDoctorName = (TextView) findViewById(R.id.doctorName) ;
+        patient_listview = (ListView) findViewById(R.id.ListViewPatient);
+        editTextMedicalField = (EditText) findViewById(R.id.et_medical_field);
+        edit = (Button) findViewById(R.id.btn_edit);
+        doctorname =  FirebaseDatabase.getInstance().getReference("doctor");
+        patientlist = FirebaseDatabase.getInstance().getReference("patientAndDoctor");
+        listdotor = new ArrayList<>();
+        patientDoctor= new ArrayList<>();
 
 
         linkSignOut.setOnClickListener(new View.OnClickListener() {
@@ -67,6 +98,37 @@ public class DoctorHomeActivity extends AppCompatActivity {
                 Log.d(TAG, "onClick: navigating to SignOutActivity");
                 Intent intent = new Intent(mContext, SignOutActivity.class);
                 startActivity(intent);
+            }
+        });
+
+        edit.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+
+                DatabaseReference newdoctor =  FirebaseDatabase.getInstance().getReference("doctor").child(updateDoctor.getUser_id());
+                Doctor d = new Doctor(updateDoctor.getUsername(),updateDoctor.getUser_id(),editTextMedicalField.getText().toString().trim(),updateDoctor.getEmail());
+                newdoctor.setValue(d);
+                Toast.makeText(mContext,"Medical Field updated successfully", Toast.LENGTH_LONG).show();
+
+            }
+        });
+
+        patient_listview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                Log.d(TAG, "onItemClick: 1");
+                patientWithDoctor obj = patientDoctor.get(i);
+                Log.d(TAG, "onItemClick: 2");
+                newObject nb = new newObject(obj, updateDoctor, patient_listview.getItemAtPosition(i).toString().trim());
+                Log.d(TAG, "onItemClick: 3");
+                Intent intent = new Intent(mContext, DoctorEndPatientIntroActivity.class);
+                Log.d(TAG, "onItemClick: 4");
+                intent.putExtra("patient", nb);
+                startActivity(intent);
+                Log.d(TAG, "onItemClick: 5");
+                finish();
+
             }
         });
 
@@ -139,6 +201,67 @@ public class DoctorHomeActivity extends AppCompatActivity {
 
             }
         });
+
+
+        doctorname.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                listdotor.clear();
+
+                for(DataSnapshot doctor_list: dataSnapshot.getChildren())
+                {
+                    Doctor d = doctor_list.getValue(Doctor.class);
+                    d.user_id = doctor_list.getKey();
+                    listdotor.add(d);
+                }
+                if(!listdotor.isEmpty()) {
+                    textViewDoctorName.setText(listdotor.get(0).getUsername());
+                    editTextMedicalField.setText(listdotor.get(0).getMedical_field());
+
+                    updateDoctor = new Doctor(listdotor.get(0).getUsername(),listdotor.get(0).getUser_id().toString().trim(),listdotor.get(0).getMedical_field(),listdotor.get(0).getEmail());
+                }
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+            
+        });
+
+        patientlist.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                patientDoctor.clear();
+
+                for(DataSnapshot patientlist: dataSnapshot.getChildren())
+                {
+
+                    patientWithDoctor pd = patientlist.getValue(patientWithDoctor.class);
+                    if(pd.getDoctorName().contentEquals(listdotor.get(0).getUsername())) {
+                        patientDoctor.add(pd);
+                    }
+                }
+                final ArrayList<String> listItems=new ArrayList<String>();
+                int i=1;
+                for(patientWithDoctor pd : patientDoctor)
+                {
+                    if(pd.toString().contentEquals(listdotor.get(0).getUsername()))
+                    {
+                        listItems.add("Patient "+(i++)+"");
+                    }
+                }
+                final ArrayAdapter < String > adapter = new ArrayAdapter < String >
+                        (mContext, android.R.layout.simple_list_item_1,
+                                listItems);
+                patient_listview.setAdapter(adapter);
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
     }
     @Override
     public void onStart() {
@@ -146,6 +269,9 @@ public class DoctorHomeActivity extends AppCompatActivity {
         // Check if user is signed in (non-null) and update UI accordingly.
         mAuth.addAuthStateListener(mAuthListener);
         checkCurrentUser(mAuth.getCurrentUser());
+
+
+
     }
 
     public void onStop(){

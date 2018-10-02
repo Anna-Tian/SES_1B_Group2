@@ -1,7 +1,13 @@
 package com.example.anna.ses_1b_group2.models;
 
-public class Doctor {
-    private String user_id;
+import com.google.firebase.database.Exclude;
+
+import java.io.Serializable;
+
+public class Doctor implements Serializable{
+
+
+    public String user_id;
     private String email;
     private String username;
     private String medical_field;

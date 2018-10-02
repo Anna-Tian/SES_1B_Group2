@@ -60,6 +60,12 @@
         <activity android:name=".camera.CameraActivity"></activity>
 
 
+        <activity android:name=".feedback.ActivityAddViewFeedBack"></activity>
+        <activity android:name=".feedback.ActivityPatientData"></activity>
+        <activity android:name=".feedback.DoctorEndPatientIntroActivity"></activity>
+
+
+
 
     </application>
 
