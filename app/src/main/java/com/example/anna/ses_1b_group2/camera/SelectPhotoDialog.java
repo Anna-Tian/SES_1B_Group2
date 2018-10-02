@@ -137,7 +137,7 @@ public class SelectPhotoDialog extends DialogFragment {
 
         //widgets
         private ImageView mPostImage;
-        private EditText mTitle, mDescription, mPrice, mCountry, mStateProvince, mCity, mContactEmail;
+        private EditText mTitle, mDescription, mContactEmail;
         private Button mPost;
         private ProgressBar mProgressBar;
 
@@ -182,12 +182,7 @@ public class SelectPhotoDialog extends DialogFragment {
                 public void onClick(View v) {
                     Log.d(TAG, "onClick: attempting to post...");
                     if(!isEmpty(mTitle.getText().toString())
-                            && !isEmpty(mDescription.getText().toString())
-                            && !isEmpty(mPrice.getText().toString())
-                            && !isEmpty(mCountry.getText().toString())
-                            && !isEmpty(mStateProvince.getText().toString())
-                            && !isEmpty(mCity.getText().toString())
-                            && !isEmpty(mContactEmail.getText().toString())){
+                            && !isEmpty(mDescription.getText().toString())){
 
                         //we have a bitmap and no Uri
                         if(mSelectedBitmap != null && mSelectedUri == null){
@@ -266,10 +261,6 @@ public class SelectPhotoDialog extends DialogFragment {
             UniversalImageLoader.setImage("", mPostImage);
             mTitle.setText("");
             mDescription.setText("");
-            mPrice.setText("");
-            mCountry.setText("");
-            mStateProvince.setText("");
-            mCity.setText("");
             mContactEmail.setText("");
         }
 

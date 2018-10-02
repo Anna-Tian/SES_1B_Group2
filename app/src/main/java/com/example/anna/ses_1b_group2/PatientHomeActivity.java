@@ -12,6 +12,7 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.anna.ses_1b_group2.camera.MediaActivity;
 import com.example.anna.ses_1b_group2.hr.HeartRateActivity;
 import com.example.anna.ses_1b_group2.login.PatientLoginActivity;
 import com.example.anna.ses_1b_group2.login.SignOutActivity;
@@ -34,7 +35,7 @@ public class PatientHomeActivity extends AppCompatActivity {
     private static final String TAG = "PatientHomeActivity";
     private Context mContext = PatientHomeActivity.this;
     private TextView mPatientName, linkSignOut;
-    private Button btnProfile, btnHR, btnMap;
+    private Button btnProfile, btnHR, btnMap, btnVs;
     //firebase
     private FirebaseAuth mAuth;
     private FirebaseAuth.AuthStateListener mAuthListener;
@@ -57,6 +58,7 @@ public class PatientHomeActivity extends AppCompatActivity {
         btnProfile = (Button) findViewById(R.id.btn_profile);
         btnHR = (Button) findViewById(R.id.btn_hr);
         btnMap = (Button) findViewById(R.id.btn_map);
+        btnVs = (Button) findViewById(R.id.btn_vs);
 
         linkSignOut.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -81,6 +83,14 @@ public class PatientHomeActivity extends AppCompatActivity {
             public void onClick(View view) {
                 Log.d(TAG, "onClick: navigating to HeartRateActivity");
                 Intent intent = new Intent(mContext, HeartRateActivity.class);
+                startActivity(intent);
+            }
+        });
+        btnVs.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Log.d(TAG, "onClick: navigating to MediaActivity");
+                Intent intent = new Intent(mContext, MediaActivity.class);
                 startActivity(intent);
             }
         });

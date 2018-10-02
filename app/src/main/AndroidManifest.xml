@@ -49,15 +49,12 @@
         <activity android:name=".profile.ProfileActivity"></activity>
         <activity android:name=".profile.EditProfileActivity"></activity>
         <activity android:name=".map.MapActivity"></activity>
+        <activity android:name=".camera.MediaActivity"></activity>
 
         <activity android:name=".login.DoctorRegisterActivity" />
         <activity android:name=".DoctorHomeActivity" ></activity>
 
 
-        <activity android:name=".camera.MediaActivity"></activity>
-
-        <activity android:name=".camera.VideoListActivity"></activity>
-        <activity android:name=".camera.CameraActivity"></activity>
 
 
 

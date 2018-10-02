@@ -1,5 +1,6 @@
 package com.example.anna.ses_1b_group2.camera;
 
+import android.content.Context;
 import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.AsyncTask;
@@ -34,6 +35,8 @@ import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.OnProgressListener;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
+import com.nostra13.universalimageloader.core.ImageLoader;
+import com.nostra13.universalimageloader.core.ImageLoaderConfiguration;
 
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
@@ -42,6 +45,7 @@ import java.io.IOException;
 public class PostFragment extends Fragment implements SelectPhotoDialog.OnPhotoSelectedListener {
 
     private static final String TAG = "PostFragment";
+
 
     @Override
     public void getImagePath(Uri imagePath) {
@@ -89,6 +93,7 @@ public class PostFragment extends Fragment implements SelectPhotoDialog.OnPhotoS
         getActivity().getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_PAN);
 
         init();
+        initImageLoader();
 
         return view;
     }
@@ -204,7 +209,6 @@ public class PostFragment extends Fragment implements SelectPhotoDialog.OnPhotoS
                 //insert the download url into the firebase database
                 Task<Uri> firebaseUri = taskSnapshot.getStorage().getDownloadUrl();
 
-//                Uri firebaseUri = taskSnapshot.getDownloadUrl();
 
                 Log.d(TAG, "onSuccess: firebase download url: " + firebaseUri.toString());
                 DatabaseReference reference = FirebaseDatabase.getInstance().getReference();
@@ -221,6 +225,7 @@ public class PostFragment extends Fragment implements SelectPhotoDialog.OnPhotoS
                         .setValue(post);
 
                 resetFields();
+
             }
         }).addOnFailureListener(new OnFailureListener() {
             @Override
@@ -265,6 +270,11 @@ public class PostFragment extends Fragment implements SelectPhotoDialog.OnPhotoS
         UniversalImageLoader.setImage("", mPostImage);
         mTitle.setText("");
         mDescription.setText("");
+    }
+    private void initImageLoader()
+    {
+        UniversalImageLoader universalImageLoader = new UniversalImageLoader(getActivity());
+        ImageLoader.getInstance().init(universalImageLoader.getConfig());
     }
 
     private void showProgressBar(){

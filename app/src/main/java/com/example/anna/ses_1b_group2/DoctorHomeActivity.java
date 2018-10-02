@@ -18,7 +18,6 @@ import com.example.anna.ses_1b_group2.login.SignOutActivity;
 import android.widget.Toast;
 import android.widget.VideoView;
 
-import com.example.anna.ses_1b_group2.camera.VideoListActivity;
 import com.example.anna.ses_1b_group2.hr.HeartRateActivity;
 import com.example.anna.ses_1b_group2.login.SignOutActivity;
 import com.example.anna.ses_1b_group2.models.Doctor;
