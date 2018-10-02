@@ -39,7 +39,7 @@ import com.google.firebase.database.ValueEventListener;
 public class DoctorHomeActivity extends AppCompatActivity {
     private static final String TAG = "DoctorHomeActivity";
     private Context mContext = DoctorHomeActivity.this;
-    private TextView mDoctorName, linkSignOut;
+    private TextView mDoctorName, linkSignOut, mMedicalField;
     //firebase
     private FirebaseAuth mAuth;
     private FirebaseAuth.AuthStateListener mAuthListener;
@@ -57,6 +57,7 @@ public class DoctorHomeActivity extends AppCompatActivity {
         Log.d(TAG, "onCreate: starting");
 
         mDoctorName = (TextView)findViewById(R.id.doctorName);
+        mMedicalField = (TextView)findViewById(R.id.tv_medical_field);
         linkSignOut = (TextView) findViewById(R.id.profile_SignOut);
 
 
@@ -77,6 +78,7 @@ public class DoctorHomeActivity extends AppCompatActivity {
         mUserSettings = userSettings;
         Doctor doctor = userSettings.getDoctor();
         mDoctorName.setText(doctor.getUsername());
+        mMedicalField.setText(doctor.getMedical_field());
     }
 
 

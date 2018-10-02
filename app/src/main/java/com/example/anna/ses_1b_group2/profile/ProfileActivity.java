@@ -32,7 +32,7 @@ public class ProfileActivity extends AppCompatActivity{
     private Context mContext = ProfileActivity.this;
     private ImageView iconHome;
     private TextView dFullName, dGender, dDOB, dHeight, dWeight, dMedicalConditon;
-    private Button btnEdit;
+    private Button btnEdit, btnSend;
 
     //firebase
     private FirebaseAuth mAuth;
@@ -55,6 +55,7 @@ public class ProfileActivity extends AppCompatActivity{
         dWeight = (TextView) findViewById(R.id.display_weight);
         dMedicalConditon = (TextView) findViewById(R.id.display_condition);
         btnEdit = (Button) findViewById(R.id.edit_profile);
+        btnSend = (Button) findViewById(R.id.btn_send);
 
         Log.d(TAG, "onCreate: started");
 
@@ -74,7 +75,14 @@ public class ProfileActivity extends AppCompatActivity{
                 startActivity(intent);
             }
         });
-
+        btnSend.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Log.d(TAG, "onClick: navigating to SendProfile page");
+                Intent intent = new Intent(mContext, EditProfileActivity.class);
+                startActivity(intent);
+            }
+        });
         setupFirebaseAuth();
 
     }

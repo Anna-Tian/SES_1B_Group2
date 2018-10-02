@@ -14,7 +14,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_centerVertical="true"
+            android:layout_marginTop="15dp"
             android:layout_centerHorizontal="true"
             android:text="Doctor Name"
             android:textStyle="bold"
@@ -23,15 +23,68 @@
             android:layout_marginStart="15dp"
             android:id="@+id/doctorName"/>
 
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/relLayout2"
+            android:layout_below="@id/doctorName"
+            android:layout_centerHorizontal="true">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="5dp"
+                android:id="@+id/tv1"
+                android:textSize="17sp"
+                android:text="Medical Field: " />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_toEndOf="@+id/tv1"
+                android:textSize="17sp"
+                android:id="@+id/tv_medical_field"/>
+            <Button
+                android:layout_width="40dp"
+                android:layout_height="20dp"
+                android:layout_toEndOf="@+id/tv_medical_field"
+                android:text="Edit"
+                android:layout_marginLeft="15dp"
+                android:textSize="17sp"
+                android:background="@drawable/white_button"/>
+        </RelativeLayout>
+
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
             android:layout_marginEnd="20dp"
-            android:layout_centerVertical="true"
+            android:layout_marginTop="10dp"
             android:id="@+id/profile_SignOut"
             android:textColor="@color/link_blue"
             android:text="Sign Out"/>
     </RelativeLayout>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/relLayout1"
+        android:id="@+id/tv2"
+        android:text="Your Patients: "
+        android:layout_marginTop="10dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginBottom="10dp"
+        android:textSize="20sp"
+        android:textColor="@color/black"/>
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_below="@+id/tv2"
+        android:layout_marginLeft="10dp">
+
+        <ListView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+    </LinearLayout>
+
 
 </RelativeLayout>

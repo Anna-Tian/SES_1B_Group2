@@ -311,14 +311,23 @@
                 <!--edit button-->
                 <Button
                     android:layout_width="150dp"
-                    android:layout_height="wrap_content"
+                    android:layout_height="40dp"
                     android:layout_below="@id/linlayout6"
-                    android:layout_marginTop="40dp"
+                    android:layout_marginTop="20dp"
                     android:layout_centerHorizontal="true"
-                    android:layout_marginBottom="40dp"
+                    android:layout_marginBottom="20dp"
                     android:id="@+id/edit_profile"
                     android:text="Edit"
-                    android:background="@drawable/white_rounded_button"/>
+                    android:background="@drawable/white_button"/>
+
+                <Button
+                    android:layout_width="150dp"
+                    android:layout_height="40dp"
+                    android:layout_below="@id/edit_profile"
+                    android:layout_centerHorizontal="true"
+                    android:id="@+id/btn_send"
+                    android:text="Send"
+                    android:background="@drawable/white_button"/>
 
             </RelativeLayout>
         </ScrollView>

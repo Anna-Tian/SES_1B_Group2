@@ -105,11 +105,11 @@
 
         <!--send data packet button-->
         <Button
-            android:id="@+id/btn_send"
+            android:id="@+id/btn_doctor"
             android:layout_width="120dp"
             android:layout_height="120dp"
             android:background="@drawable/white_rounded_button"
-            android:text="Send Data Packet"
+            android:text="Your Doctor"
             android:textAllCaps="false"
             android:layout_marginTop="20dp"
             android:textSize="25dp"
