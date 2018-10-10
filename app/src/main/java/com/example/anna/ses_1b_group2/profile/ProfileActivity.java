@@ -79,7 +79,7 @@ public class ProfileActivity extends AppCompatActivity{
             @Override
             public void onClick(View view) {
                 Log.d(TAG, "onClick: navigating to SendProfile page");
-                Intent intent = new Intent(mContext, EditProfileActivity.class);
+                Intent intent = new Intent(mContext, SendProfileActivity.class);
                 startActivity(intent);
             }
         });
