@@ -1,9 +1,5 @@
 package com.example.anna.ses_1b_group2.models;
 
-/**
- * Created by User on 10/29/2017.
- */
-
 public class Post {
 
     private String post_id;

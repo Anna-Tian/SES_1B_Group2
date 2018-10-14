@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
-<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+<manifest
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     package="com.example.anna.ses_1b_group2" >
-
 
     <uses-permission android:name="android.permission.INTERNET"/>
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>
@@ -16,9 +16,9 @@
 
     <application
         android:allowBackup="true"
-        android:icon="@mipmap/ic_launcher"
+        android:icon="@mipmap/ic_launcher_logo"
         android:label="@string/app_name"
-        android:roundIcon="@mipmap/ic_launcher_round"
+        android:roundIcon="@mipmap/ic_logo_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
 
@@ -30,11 +30,6 @@
             android:name="com.google.android.gms.version"
             android:value="@integer/google_play_services_version" />
 
-        <activity android:name=".PatientHomeActivity"></activity>
-        <activity android:name=".hr.HeartRateActivity"></activity>
-        <activity android:name=".hr.HearRateDataActivity" />
-        <activity android:name=".hr.ShowDataActivity" />
-        <activity android:name=".hr.ActivitySelectDoctor"/>
         <activity android:name=".login.LoginSelectActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -42,31 +37,38 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity android:name=".DoctorHomeActivity" />
+        <activity android:name=".PatientHomeActivity" />
+
+        <activity android:name=".hr.HeartRateActivity" />
+        <activity android:name=".hr.HearRateDataActivity" />
+        <activity android:name=".hr.ShowDataActivity" />
+        <activity android:name=".hr.ActivitySelectDoctor"/>
+
         <activity android:name=".login.DoctorLoginActivity" />
         <activity android:name=".login.PatientLoginActivity" />
-        <activity android:name=".login.PatientRegisterActivity"></activity>
-        <activity android:name=".login.SignOutActivity"></activity>
-        <activity android:name=".profile.ProfileActivity"></activity>
-        <activity android:name=".profile.EditProfileActivity"></activity>
-        <activity android:name=".map.MapActivity"></activity>
-        <activity android:name=".camera.MediaActivity"></activity>
+        <activity android:name=".login.PatientRegisterActivity" />
+        <activity android:name=".login.SignOutActivity" />
+
+        <activity android:name=".profile.ProfileActivity" />
+        <activity android:name=".profile.EditProfileActivity" />
+
+        <activity android:name=".map.MapActivity" />
+
+        <activity android:name=".camera.MediaActivity" />
 
         <activity android:name=".login.DoctorRegisterActivity" />
-        <activity android:name=".DoctorHomeActivity" ></activity>
-
-
-
 
 
     </application>
 
+
     <uses-permission android:name="android.permission.CAMERA" />
-    <uses-feature android:name="android.hardware.camera"
-        android:required="true"/>
-    <uses-feature android:name="android.hardware.camera.autofocus"/>
     <uses-permission android:name="android.permission.RECORD_AUDIO" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.MOUNT_UNMOUNT_FILESYSTEMS"
         tools:ignore="ProtectedPermissions" />
-    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-feature android:name="android.hardware.camera" android:required="true"/>
+    <uses-feature android:name="android.hardware.camera.autofocus"/>
+
 </manifest>

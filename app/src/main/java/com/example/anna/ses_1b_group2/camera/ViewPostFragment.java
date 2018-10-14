@@ -29,10 +29,6 @@ import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 
 
-/**
- * Created by User on 10/22/2017.
- */
-
 public class ViewPostFragment extends Fragment {
 
     private static final String TAG = "ViewPostFragment";

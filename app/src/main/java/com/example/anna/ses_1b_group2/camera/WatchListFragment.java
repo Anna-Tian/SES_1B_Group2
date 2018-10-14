@@ -1,22 +1,27 @@
 package com.example.anna.ses_1b_group2.camera;
 
+import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.inputmethod.EditorInfo;
+import android.widget.EditText;
 import android.widget.FrameLayout;
+import android.widget.ImageView;
+import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.anna.ses_1b_group2.R;
-import com.example.anna.ses_1b_group2.models.Post;
-import com.example.anna.ses_1b_group2.utils.PostListAdapter;
-import com.example.anna.ses_1b_group2.utils.RecyclerViewMargin;
-
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -25,11 +30,28 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 
+import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashMap;
+
+import com.example.anna.ses_1b_group2.models.HitsList;
+import com.example.anna.ses_1b_group2.models.HitsObject;
+import com.example.anna.ses_1b_group2.models.Post;
+import com.example.anna.ses_1b_group2.utils.ElasticSearchAPI;
+import com.example.anna.ses_1b_group2.utils.PostListAdapter;
+import com.example.anna.ses_1b_group2.utils.RecyclerViewMargin;
+import okhttp3.Credentials;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+import retrofit2.Retrofit;
+import retrofit2.converter.gson.GsonConverterFactory;
+
 
 public class WatchListFragment extends Fragment {
 
-    private static final String TAG = "WatchListFragment";
+    private static final String TAG = "SearchFragment";
+    private static final String BASE_URL = "http://23.236.56.178//elasticsearch/posts/post/";
     private static final int NUM_GRID_COLUMNS = 3;
     private static final int GRID_ITEM_MARGIN = 5;
 
@@ -51,7 +73,9 @@ public class WatchListFragment extends Fragment {
         mRecyclerView = (RecyclerView) view.findViewById(R.id.watchListRecyclerView);
         mFrameLayout = (FrameLayout) view.findViewById(R.id.watch_list_container);
 
+
         init();
+
 
         return view;
     }
@@ -63,14 +87,13 @@ public class WatchListFragment extends Fragment {
 
         //reference for listening when items are added or removed from the watch list
         mReference = FirebaseDatabase.getInstance().getReference()
-                .child(getString(R.string.post_id))
+                .child(getString(R.string.node_watch_list))
                 .child(FirebaseAuth.getInstance().getCurrentUser().getUid());
 
         //set the listener to the reference
         mReference.addValueEventListener(mLisenter);
 
     }
-
     private void getWatchListIds(){
         Log.d(TAG, "getWatchListIds: getting users watch list.");
         if(mPosts != null){
@@ -83,7 +106,7 @@ public class WatchListFragment extends Fragment {
         mPostsIds = new ArrayList<>();
         DatabaseReference reference = FirebaseDatabase.getInstance().getReference();
 
-        Query query = reference.child(getString(R.string.recordId))
+        Query query = reference.child(getString(R.string.node_watch_list))
                 .orderByKey()
                 .equalTo(FirebaseAuth.getInstance().getCurrentUser().getUid());
 
@@ -109,12 +132,11 @@ public class WatchListFragment extends Fragment {
             }
         });
     }
-
-    private void getPosts(){
-        if(mPostsIds.size() > 0){
+    private void getPosts() {
+        if (mPostsIds.size() > 0) {
             DatabaseReference reference = FirebaseDatabase.getInstance().getReference();
 
-            for(int i  = 0; i < mPostsIds.size(); i++){
+            for (int i = 0; i < mPostsIds.size(); i++) {
                 Log.d(TAG, "getPosts: getting post information for: " + mPostsIds.get(i));
 
                 Query query = reference.child(getString(R.string.node_posts))
@@ -137,35 +159,33 @@ public class WatchListFragment extends Fragment {
                     }
                 });
             }
-        }else{
+        } else {
             mAdapter.notifyDataSetChanged(); //still need to notify the adapter if the list is empty
         }
     }
+        public void viewPost (String postId){
+            ViewPostFragment fragment = new ViewPostFragment();
+            FragmentTransaction transaction = getActivity().getSupportFragmentManager().beginTransaction();
 
-    public void viewPost(String postId){
-        ViewPostFragment fragment = new ViewPostFragment();
-        FragmentTransaction transaction = getActivity().getSupportFragmentManager().beginTransaction();
+            Bundle args = new Bundle();
+            args.putString(getString(R.string.arg_post_id), postId);
+            fragment.setArguments(args);
 
-        Bundle args = new Bundle();
-        args.putString(getString(R.string.arg_post_id), postId);
-        fragment.setArguments(args);
+            transaction.replace(R.id.container, fragment, getString(R.string.fragment_view_post));
+            transaction.addToBackStack(getString(R.string.fragment_view_post));
+            transaction.commit();
 
-        transaction.replace(R.id.watch_list_container, fragment, getString(R.string.fragment_view_post));
-        transaction.addToBackStack(getString(R.string.fragment_view_post));
-        transaction.commit();
+            mFrameLayout.setVisibility(View.VISIBLE);
+        }
 
-        mFrameLayout.setVisibility(View.VISIBLE);
-    }
-
-    private void setupPostsList(){
-        RecyclerViewMargin itemDecorator = new RecyclerViewMargin(GRID_ITEM_MARGIN, NUM_GRID_COLUMNS);
-        mRecyclerView.addItemDecoration(itemDecorator);
-        GridLayoutManager gridLayoutManager = new GridLayoutManager(getActivity(), NUM_GRID_COLUMNS);
-        mRecyclerView.setLayoutManager(gridLayoutManager);
-        mAdapter = new PostListAdapter(getActivity(), mPosts);
-        mRecyclerView.setAdapter(mAdapter);
-    }
-
+        private void setupPostsList(){
+            RecyclerViewMargin itemDecorator = new RecyclerViewMargin(GRID_ITEM_MARGIN, NUM_GRID_COLUMNS);
+            mRecyclerView.addItemDecoration(itemDecorator);
+            GridLayoutManager gridLayoutManager = new GridLayoutManager(getActivity(), NUM_GRID_COLUMNS);
+            mRecyclerView.setLayoutManager(gridLayoutManager);
+            mAdapter = new PostListAdapter(getActivity(), mPosts);
+            mRecyclerView.setAdapter(mAdapter);
+        }
     @Override
     public void onDestroy() {
         super.onDestroy();
@@ -185,20 +205,6 @@ public class WatchListFragment extends Fragment {
         }
     };
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 

@@ -18,7 +18,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:id="@+id/relLayout1"
-                android:background="@color/lightBlue">
+                android:background="@color/black">
 
 
                 <ImageView
@@ -48,7 +48,7 @@
                         android:layout_marginLeft="10dp"
                         android:background="@null"
                         android:maxLines="2"
-                        android:hint="Title"
+                        android:hint="Name"
                         android:textColor="@color/black"
                         android:padding="10dp"/>
 
@@ -127,8 +127,10 @@
                             android:layout_height="wrap_content"
                             android:layout_marginTop="35dp"
                             android:layout_marginBottom="35dp"
-                            android:text="post"
-                            android:background="@drawable/ic_launcher_background"
+                            android:text="POST"
+                            android:textColor="@color/white"
+                            android:textSize="20dp"
+                            android:background="@color/black"
                             android:layout_centerHorizontal="true"/>
                     </RelativeLayout>
 
