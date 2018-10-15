@@ -13,6 +13,26 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical">
+        <!--<LinearLayout-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:orientation="horizontal">-->
+            <!--<TextView-->
+                <!--android:layout_width="wrap_content"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:textSize="20sp"-->
+                <!--android:textColor="@color/black"-->
+                <!--android:text="Sent Time: "/>-->
+            <!--<TextView-->
+                <!--android:layout_width="wrap_content"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:textSize="20sp"-->
+                <!--android:text="sent time"-->
+                <!--android:id="@+id/sentTime"-->
+                <!--android:textColor="@color/colorPrimary"-->
+                <!--android:layout_marginStart="10dp"/>-->
+        <!--</LinearLayout>-->
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -125,6 +145,13 @@
             android:text="medical condition"
             android:id="@+id/tv_medical_field"
             android:textColor="@color/colorPrimary"/>
+        <!--<Button-->
+            <!--android:layout_width="150dp"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:background="@drawable/white_button"-->
+            <!--android:id="@+id/btn_fb"-->
+            <!--android:text="Add FeedBack"-->
+            <!--android:textAllCaps="false"/>-->
     </LinearLayout>
 
 </android.support.v7.widget.CardView>

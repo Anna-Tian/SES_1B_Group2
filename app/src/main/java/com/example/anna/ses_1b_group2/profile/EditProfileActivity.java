@@ -10,10 +10,12 @@ import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import com.example.anna.ses_1b_group2.R;
 import com.example.anna.ses_1b_group2.login.PatientLoginActivity;
+import com.example.anna.ses_1b_group2.models.User;
 import com.example.anna.ses_1b_group2.models.UserProfile;
 import com.example.anna.ses_1b_group2.models.UserSettings;
 import com.example.anna.ses_1b_group2.utils.FirebaseMethods;
@@ -31,6 +33,7 @@ public class EditProfileActivity extends AppCompatActivity {
     private Context mContext = EditProfileActivity.this;
     private ImageView iconBack, iconSave;
     private EditText eFullName, eGender, eDOB, eHeight, eWeight, eMedicalConditon;
+    private String patientName;
 
     //variables
     private UserSettings mUserSettings;
@@ -71,6 +74,8 @@ public class EditProfileActivity extends AppCompatActivity {
             public void onClick(View view) {
                 Log.d(TAG, "onClick: attempting to save changes");
                 saveProfileSettings();
+                Intent intent = new Intent(mContext, ProfileActivity.class);
+                startActivity(intent);
             }
         });
 
@@ -79,7 +84,7 @@ public class EditProfileActivity extends AppCompatActivity {
 
     private void setProfileWidgets(UserSettings userSettings){
         Log.d(TAG, "setProfileWidgets: "+ userSettings.toString());
-        //User user = userSettings.getUser();
+        User user = userSettings.getUser();
         UserProfile userProfile = userSettings.getProfile();
 
         mUserSettings = userSettings;

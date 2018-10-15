@@ -7,11 +7,15 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
+import android.text.style.UpdateAppearance;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
+import com.example.anna.ses_1b_group2.doctor.PatientDetails;
 import com.example.anna.ses_1b_group2.login.PatientLoginActivity;
 import com.example.anna.ses_1b_group2.camera.MediaActivity;
 import com.example.anna.ses_1b_group2.login.SignOutActivity;
@@ -22,9 +26,11 @@ import com.example.anna.ses_1b_group2.hr.HeartRateActivity;
 import com.example.anna.ses_1b_group2.login.SignOutActivity;
 import com.example.anna.ses_1b_group2.models.Doctor;
 import com.example.anna.ses_1b_group2.map.MapActivity;
+import com.example.anna.ses_1b_group2.models.User;
 import com.example.anna.ses_1b_group2.models.UserProfile;
 import com.example.anna.ses_1b_group2.models.UserSettings;
 import com.example.anna.ses_1b_group2.utils.FirebaseMethods;
+import com.firebase.ui.database.FirebaseRecyclerAdapter;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.GoogleApiAvailability;
 import com.google.firebase.auth.FirebaseAuth;
@@ -39,12 +45,15 @@ public class DoctorHomeActivity extends AppCompatActivity {
     private static final String TAG = "DoctorHomeActivity";
     private Context mContext = DoctorHomeActivity.this;
     private TextView mDoctorName, linkSignOut, mMedicalField;
+    private RecyclerView patientList;
+    private String userID, patientNameinSend, patientnameinProfile, doctorName, patientID;
     //firebase
     private FirebaseAuth mAuth;
     private FirebaseAuth.AuthStateListener mAuthListener;
     private FirebaseDatabase mFirebaseDatabase;
     private DatabaseReference myRef;
     private FirebaseMethods mFirebaseMethods;
+    private DatabaseReference myRefPatient;
 
     private UserSettings mUserSettings;
 
@@ -59,6 +68,13 @@ public class DoctorHomeActivity extends AppCompatActivity {
         mMedicalField = (TextView)findViewById(R.id.tv_medical_field);
         linkSignOut = (TextView) findViewById(R.id.profile_SignOut);
 
+        mAuth = FirebaseAuth.getInstance();
+        mFirebaseDatabase = FirebaseDatabase.getInstance();
+        myRef = mFirebaseDatabase.getReference();
+        mFirebaseMethods = new FirebaseMethods(mContext);
+        myRefPatient = mFirebaseDatabase.getReference().child("user_profile");
+        myRefPatient.keepSynced(true);
+
 
         linkSignOut.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -69,60 +85,18 @@ public class DoctorHomeActivity extends AppCompatActivity {
             }
         });
 
-        setupFirebaseAuth();
-    }
-
-    private void setProfileWidgets(UserSettings userSettings){
-
-        mUserSettings = userSettings;
-        Doctor doctor = userSettings.getDoctor();
-        mDoctorName.setText(doctor.getUsername());
-        mMedicalField.setText(doctor.getMedical_field());
-    }
+        patientList = (RecyclerView) findViewById(R.id.recyclerView);
+//        docList.setHasFixedSize(true);
+        patientList.setLayoutManager(new LinearLayoutManager(this));
 
 
-    /**
-     * -------------------------------Firebase---------------------------------------
-     */
-    /**
-     * checks to see if the @param 'user' is logged in
-     * @param user
-     */
-    private void checkCurrentUser(FirebaseUser user){
-        Log.d(TAG, "checkCurrentUser: checking if user is logged in.");
-        if (user == null){
-            Intent intent = new Intent(mContext, PatientLoginActivity.class);
-            startActivity(intent);
-        }
-    }
-    /**
-     * setup the Firebase auth object
-     */
-    
-    private void setupFirebaseAuth(){
-        Log.d(TAG, "setupFirebaseAuth: setting up firebase auth");
-        mAuth = FirebaseAuth.getInstance();
-        mFirebaseDatabase = FirebaseDatabase.getInstance();
-        myRef = mFirebaseDatabase.getReference();
-        mFirebaseMethods = new FirebaseMethods(mContext);
 
-        mAuthListener = new FirebaseAuth.AuthStateListener() {
-            @Override
-            public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
-                FirebaseUser user = firebaseAuth.getCurrentUser();
+//        patientNameinSend = myRefPatient.child("full_name").toString();
+//        patientnameinProfile = myRef.child("send_Patient_details").child("full_name").toString();
+        Log.d(TAG, "onCreate: patientNameinSend: " + patientNameinSend);
 
-                checkCurrentUser(user);
-
-                if (user != null){
-                    // user is signed in
-                    Log.d(TAG, "onAuthStateChanged: signed_in: " + user.getUid());
-
-                } else {
-                    // user is signed out
-                    Log.d(TAG, "onAuthStateChanged: signed_out");
-                }
-            }
-        };
+        userID = FirebaseAuth.getInstance().getCurrentUser().getUid();
+        Log.d(TAG, "onCreate: singed in: " + userID);
 
         myRef.addValueEventListener(new ValueEventListener() {
             @Override
@@ -138,24 +112,74 @@ public class DoctorHomeActivity extends AppCompatActivity {
 
             }
         });
+
     }
+
+    private void setProfileWidgets(UserSettings userSettings){
+
+        mUserSettings = userSettings;
+        Doctor doctor = userSettings.getDoctor();
+        User user = userSettings.getUser();
+        mDoctorName.setText(doctor.getUsername());
+        mMedicalField.setText(doctor.getMedical_field());
+    }
+
+
     @Override
     public void onStart() {
         super.onStart();
-        // Check if user is signed in (non-null) and update UI accordingly.
-        mAuth.addAuthStateListener(mAuthListener);
-        checkCurrentUser(mAuth.getCurrentUser());
+
+
+        FirebaseRecyclerAdapter<UserProfile, PatientViewHolder> firebaseRecyclerAdapter = new FirebaseRecyclerAdapter<UserProfile, PatientViewHolder>
+                (UserProfile.class, R.layout.snippet_p_name, PatientViewHolder.class, myRefPatient) {
+            @Override
+            protected void populateViewHolder(PatientViewHolder viewHolder, final UserProfile model, int position) {
+
+                viewHolder.setFull_name(model.getFull_name());
+
+                viewHolder.itemView.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        myRef.addValueEventListener(new ValueEventListener() {
+                            @Override
+                            public void onDataChange(DataSnapshot dataSnapshot) {
+                                //retrieve patient profile information from the database
+                                Intent intent = new Intent(mContext, PatientDetails.class);
+                                intent.putExtra("patient_name", model.getFull_name());
+                                intent.putExtra("dob_i", model.getDob());
+                                intent.putExtra("gender_i", model.getGender());
+                                intent.putExtra("height_i",model.getGender());
+                                intent.putExtra("condition_i", model.getMedical_condition());
+                                intent.putExtra("weight_i", model.getWeight());
+                                startActivity(intent);
+                            }
+                            @Override
+                            public void onCancelled(DatabaseError databaseError) {
+                            }
+                        });
+                    }
+                });
+            }
+        };
+        patientList.setAdapter(firebaseRecyclerAdapter);
     }
 
-    public void onStop(){
-        super.onStop();
-        if(mAuthListener != null){
-            mAuth.removeAuthStateListener(mAuthListener);
+    public static class PatientViewHolder extends RecyclerView.ViewHolder{
+        private static final String TAG = "PatientViewHolder";
+        View mView;
+
+        public PatientViewHolder(View itemView){
+            super(itemView);
+            mView = itemView;
         }
+
+        public void setFull_name(String full_name){
+            TextView patient_name = (TextView)mView.findViewById(R.id.patientName);
+            patient_name.setText(full_name);
+            Log.d(TAG, "setFull_name: "+ full_name);
+        }
+
     }
-    /**
-     * -------------------------------Firebase---------------------------------------
-     */
 
 
 

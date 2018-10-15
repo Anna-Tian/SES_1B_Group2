@@ -78,7 +78,7 @@ public class FirebaseMethods {
         User user = new User(
                 userID,
                 email,
-                StringManipulation.condenseUsername(username)
+                username
         );
 
         myRef.child(mContext.getString(R.string.dbname_user)).child(userID).setValue(user);
@@ -99,7 +99,7 @@ public class FirebaseMethods {
         Doctor doctor = new Doctor(
                 userID,
                 email,
-                StringManipulation.condenseUsername(username),
+                username,
                 medical_field
         );
 
@@ -174,6 +174,10 @@ public class FirebaseMethods {
             myRef.child(mContext.getString(R.string.dbname_user_profile))
                     .child(userID)
                     .child(mContext.getString(R.string.field_full_name))
+                    .setValue(fullName);
+            myRef.child(mContext.getString(R.string.dbname_user))
+                    .child(userID)
+                    .child(mContext.getString(R.string.field_username))
                     .setValue(fullName);
         }
         if (gender != null){

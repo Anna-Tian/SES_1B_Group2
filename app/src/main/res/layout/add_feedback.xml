@@ -33,7 +33,7 @@
                         android:textSize="20sp"
                         android:textColor="@color/black"
                         android:layout_marginStart="15dp"
-                        android:id="@+id/add_feedback"/>
+                        android:id="@+id/title_add_feedback"/>
 
                     <ImageView
                         android:layout_width="30dp"
@@ -75,6 +75,7 @@
                     <EditText
                         android:layout_width="match_parent"
                         android:layout_height="200dp"
+                        android:id="@+id/add_feedback"
                         android:focusedByDefault="true"
                         android:hint="Add your feedback here :p"
                         android:inputType="none"
