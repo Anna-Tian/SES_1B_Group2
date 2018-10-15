@@ -1,0 +1,42 @@
+{
+  "project_info": {
+    "project_number": "181495180353",
+    "firebase_url": "https://ses1bgroup2-dfa32.firebaseio.com",
+    "project_id": "ses1bgroup2-dfa32",
+    "storage_bucket": "ses1bgroup2-dfa32.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:181495180353:android:c76728c989a7b45b",
+        "android_client_info": {
+          "package_name": "com.example.anna.ses_1b_group2"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "181495180353-afhsa6di4851d1566ca13dehl9qqclgg.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDA7Jj8fa78tN08hivI_i90dbfq-3EyWL0"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

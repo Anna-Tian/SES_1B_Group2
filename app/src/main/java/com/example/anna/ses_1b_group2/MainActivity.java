@@ -1,15 +1,25 @@
 package com.example.anna.ses_1b_group2;
 
 import android.Manifest;
+import android.app.ActionBar;
 import android.app.ProgressDialog;
+import android.content.BroadcastReceiver;
+import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.content.pm.PackageManager;
 import android.net.Uri;
+import android.os.Build;
+import android.os.Environment;
 import android.support.annotation.NonNull;
 import android.support.v4.app.ActivityCompat;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
@@ -26,141 +36,182 @@ import com.google.firebase.storage.OnProgressListener;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 
-public class MainActivity extends AppCompatActivity {
+import java.io.File;
 
-    Button selectFile,upload;
-    TextView notification;
-    Uri pdfUri;
+public class MainActivity extends AppCompatActivity implements FragmentManager.OnBackStackChangedListener {
 
-    FirebaseStorage storage;
-    FirebaseDatabase database;
-    ProgressDialog progressDialog;
-    StorageReference storageReference;
-    DatabaseReference reference;
+    public static final String PATH = "path";
+    public static final String EXTERNAL_BASE_PATH = Environment
+            .getExternalStorageDirectory().getAbsolutePath();
 
+    private static final boolean HAS_ACTIONBAR = Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB;
 
+    private FragmentManager mFragmentManager;
+    private BroadcastReceiver mStorageListener = new BroadcastReceiver() {
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            Toast.makeText(context, R.string.storage_removed, Toast.LENGTH_LONG).show();
+            finishWithResult(null);
+        }
+    };
+
+    private String mPath;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
 
-        storage=FirebaseStorage.getInstance();
-        database=FirebaseDatabase.getInstance();
+        mFragmentManager = getSupportFragmentManager();
+        mFragmentManager.addOnBackStackChangedListener(this);
 
-        selectFile=findViewById(R.id.selectFile);
-        upload=findViewById(R.id.upload);
-        notification=findViewById(R.id.notification);
+        if (savedInstanceState == null) {
+            mPath = EXTERNAL_BASE_PATH;
+            addFragment();
+        } else {
+            mPath = savedInstanceState.getString(PATH);
+        }
 
-        selectFile.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-                if(ContextCompat.checkSelfPermission(MainActivity.this, Manifest.permission.READ_EXTERNAL_STORAGE)== PackageManager.PERMISSION_GRANTED)
-                {
-                    selectPdf();
-                }
-                else
-                    ActivityCompat.requestPermissions(MainActivity.this, new String[]{Manifest.permission.READ_EXTERNAL_STORAGE}, 9);
-            }
-        });
-
-        upload.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-                if(pdfUri!=null)
-                    uploadFile(pdfUri);
-                else
-                    Toast.makeText(MainActivity.this,"select a file",Toast.LENGTH_SHORT).show();
-            }
-        });
-
-
-
-
-    }
-
-    private void uploadFile(Uri pdfUri) {
-
-        progressDialog=new ProgressDialog(this);
-        progressDialog.setProgressStyle(ProgressDialog.STYLE_HORIZONTAL);
-        progressDialog.setTitle("Uploading file..");
-        progressDialog.setProgress(0);
-        progressDialog.show();
-
-        final String fileName = System.currentTimeMillis()+"";
-        StorageReference storageReference=storage.getReference();
-
-        storageReference.child("Uploads").child(fileName).putFile(pdfUri).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
-            @Override
-            public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-
-                String url=taskSnapshot.getUploadSessionUri().toString();
-
-                DatabaseReference reference=database.getReference();
-                reference.child(fileName).setValue(url).addOnCompleteListener(new OnCompleteListener<Void>() {
-                    @Override
-                    public void onComplete(@NonNull Task<Void> task) {
-                        if(task.isSuccessful())
-                            Toast.makeText(MainActivity.this,"File successfully uploaded",Toast.LENGTH_SHORT).show();
-                        else
-                            Toast.makeText(MainActivity.this,"File not successfully uploaded",Toast.LENGTH_SHORT).show();
-
-                    }
-                });
-
-            }
-        }).addOnFailureListener(new OnFailureListener() {
-            @Override
-            public void onFailure(@NonNull Exception e) {
-
-                Toast.makeText(MainActivity.this,"File not successfully uploaded",Toast.LENGTH_SHORT).show();
-
-            }
-        }).addOnProgressListener(new OnProgressListener<UploadTask.TaskSnapshot>() {
-            @Override
-            public void onProgress(UploadTask.TaskSnapshot taskSnapshot) {
-
-                int currentProgress = (int) (100*taskSnapshot.getBytesTransferred()/taskSnapshot.getTotalByteCount());
-                progressDialog.setProgress(currentProgress);
-
-
-            }
-        });
+        setTitle(mPath);
     }
 
     @Override
-    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+    protected void onPause() {
+        super.onPause();
 
-        if (requestCode== 9 && grantResults[0]==PackageManager.PERMISSION_GRANTED )
-        {
-            selectPdf();
-        }
-        else
-            Toast.makeText(MainActivity.this, "please provide permission",Toast.LENGTH_SHORT).show();
-
-    }
-
-    private void selectPdf() {
-
-        Intent intent=new Intent();
-        intent.setType("appliaction/pdf");
-        intent.setAction(Intent.ACTION_GET_CONTENT);
-        startActivityForResult(intent, 86);
+        unregisterStorageListener();
     }
 
     @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+    protected void onResume() {
+        super.onResume();
 
-        if(requestCode==86 && resultCode==RESULT_OK && data!=null)
-        {
-            pdfUri=data.getData();
-            notification.setText("file is selected"+data.getData().getLastPathSegment());
+        registerStorageListener();
+    }
+
+    @Override
+    protected void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+
+        outState.putString(PATH, mPath);
+    }
+
+    @Override
+    public void onBackStackChanged() {
+
+        int count = mFragmentManager.getBackStackEntryCount();
+        if (count > 0) {
+            FragmentManager.BackStackEntry fragment = mFragmentManager.getBackStackEntryAt(count - 1);
+            mPath = fragment.getName();
+        } else {
+            mPath = EXTERNAL_BASE_PATH;
         }
-        else{
-            Toast.makeText(MainActivity.this, "please select a file", Toast.LENGTH_SHORT).show();
+
+        setTitle(mPath);
+        if (HAS_ACTIONBAR)
+            invalidateOptionsMenu();
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        if (HAS_ACTIONBAR) {
+            boolean hasBackStack = mFragmentManager.getBackStackEntryCount() > 0;
+
+            ActionBar actionBar = getActionBar();
+            actionBar.setDisplayHomeAsUpEnabled(hasBackStack);
+            actionBar.setHomeButtonEnabled(hasBackStack);
         }
+
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case android.R.id.home:
+                mFragmentManager.popBackStack();
+                return true;
+        }
+
+        return super.onOptionsItemSelected(item);
+    }
+
+    /**
+     * Add the initial Fragment with given path.
+     */
+    private void addFragment() {
+        FileListFragment fragment = FileListFragment.newInstance(mPath);
+        mFragmentManager.beginTransaction()
+                .add(android.R.id.content, fragment).commit();
+    }
+
+    /**
+     * "Replace" the existing Fragment with a new one using given path. We're
+     * really adding a Fragment to the back stack.
+     *
+     * @param file The file (directory) to display.
+     */
+    private void replaceFragment(File file) {
+        mPath = file.getAbsolutePath();
+
+        FileListFragment fragment = FileListFragment.newInstance(mPath);
+        mFragmentManager.beginTransaction()
+                .replace(android.R.id.content, fragment)
+                .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN)
+                .addToBackStack(mPath).commit();
+    }
+
+    /**
+     * Finish this Activity with a result code and URI of the selected file.
+     *
+     * @param file The file selected.
+     */
+    private void finishWithResult(File file) {
+        if (file != null) {
+            Uri uri = Uri.fromFile(file);
+            setResult(RESULT_OK, new Intent().setData(uri));
+            finish();
+        } else {
+            setResult(RESULT_CANCELED);
+            finish();
+        }
+    }
+
+    /**
+     * Called when the user selects a File
+     *
+     * @param file The file that was selected
+     */
+    public void onFileSelected(File file) {
+        if (file != null) {
+            if (file.isDirectory()) {
+                replaceFragment(file);
+            } else {
+                finishWithResult(file);
+            }
+        } else {
+            Toast.makeText(MainActivity.this, R.string.error_selecting_file,
+                    Toast.LENGTH_SHORT).show();
+        }
+    }
+
+    /**
+     * Register the external storage BroadcastReceiver.
+     */
+    private void registerStorageListener() {
+        IntentFilter filter = new IntentFilter();
+        filter.addAction(Intent.ACTION_MEDIA_REMOVED);
+        registerReceiver(mStorageListener, filter);
+    }
+
+    /**
+     * Unregister the external storage BroadcastReceiver.
+     */
+    private void unregisterStorageListener() {
+        unregisterReceiver(mStorageListener);
+    }
+
+    @Override
+    public void onPointerCaptureChanged(boolean hasCapture) {
 
     }
 }

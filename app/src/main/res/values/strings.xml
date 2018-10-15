@@ -3,4 +3,7 @@
     <string name="selectfile">Select File</string>
     <string name="no_file_is_selected">No File is Selected</string>
     <string name="upload">Upload</string>
+    <string name="storage_removed" />
+    <string name="error_selecting_file" />
+    <string name="empty_directory" />
 </resources>
